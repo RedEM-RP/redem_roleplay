@@ -4,9 +4,9 @@
 Join our discord to get the newest updates and support! - https://discord.gg/FKH4uwb
 
 ## 1. Features
-- Respawn/Spawn system - #######
+- Respawn/Spawn system - [redemrp_respawn](https://github.com/RedEM-RP/redemrp_respawn)
 - Loading And Saving Player Information in MySQL databse
-- Multicharacter system - #######
+- Multicharacter system - [redemrp_identity](https://github.com/RedEM-RP/redemrp_identity)
 - Money System
 - Gold System
 - Groups System
@@ -17,8 +17,8 @@ Join our discord to get the newest updates and support! - https://discord.gg/FKH
 - Inventory System [not done yet]
 - Customizable HUD
 - Leveling and EXP system (Unlimited Level support)
-- Up to 10 Characters - ########
-- Respawn Place Selection - #########
+- Up to 10 Characters - [redemrp_identity](https://github.com/RedEM-RP/redemrp_identity)
+- Respawn Place Selection - [redemrp_respawn](https://github.com/RedEM-RP/redemrp_respawn)
 - A lot of configuration options
 
 ## 2. Requirements
@@ -27,7 +27,7 @@ Join our discord to get the newest updates and support! - https://discord.gg/FKH
 
 [redem](https://github.com/kanersps/redem)
 
-[esplugin_mysql](https://github.com/kanersps/esplugin_mysql)
+[esplugin_mysql](https://github.com/RedEM-RP/esplugin_mysql)
 
 ## 3. Installation
 - Put fivem-mysql-async into server-data/resources/ and rename it to mysql-async
