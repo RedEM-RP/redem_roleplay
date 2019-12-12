@@ -1,110 +1,41 @@
 --                                     Licensed under                                     --
 -- Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License --
 
-_serverPrefix = "XRP: "
+_serverPrefix = "redemrp: "
 _VERSION = 'PRE-LAUNCH 0.1'
 _firstCheckPerformed = false
 _UUID = LoadResourceFile(GetCurrentResourceName(), "uuid") or "unknown"
 
 Users = {}
 
-RegisterServerEvent('playerConnecting')
-AddEventHandler('playerConnecting', function(name, setKickReason)
-	local id
-	for k,v in ipairs(GetPlayerIdentifiers(source))do
-		if string.sub(v, 1, string.len("steam:")) == "steam:" then
-			id = v
-			break
-		end
-	end
-
-	if not id then
-		setKickReason("Unable to find steam identifier', please relaunch Steam and RedM")
-		CancelEvent()
-	end
-end)
-
-RegisterServerEvent("xrp:firstSpawn")
-AddEventHandler("xrp:firstSpawn", function(charid)
+AddEventHandler("redem:playerLoaded", function(_source, user)
 	local _source = source
-	local _charid = tonumber(charid)
-    print("XRP: Player activated: " .. GetPlayerName(_source))
-
-    local id
-    for k,v in ipairs(GetPlayerIdentifiers(_source))do
-        if string.sub(v, 1, string.len("steam:")) == "steam:" then
-            id = v
-            break
-        end
-    end
-    local subid = "char" .. _charid .. ":" .. string.sub(id, 7)
-    registerUser(subid, _source)
-end)
- 
-function registerUser(identifier, source)
-	local Source = source
-	local once = true
-	TriggerEvent("xrp_db:doesUserExist", identifier, function(exists)
-		if once then
-			once = false
-		if exists then
-			loadUser(identifier, Source, false)
-		else
-			local license = "license:rockstardevlicense" -- DISABLED UNTIL LICENSE WILL WORK
-			for k,v in ipairs(GetPlayerIdentifiers(Source))do
-				if string.sub(v, 1, string.len("license:")) == "license:" then
-					license = v
-					break
-				end
-			end
-			local name = GetPlayerName(Source)
-
-			TriggerEvent("xrp_db:createUser", identifier, license, name, 25, 1, function()
-				loadUser(identifier, Source, true)
-			end)
-		end
-	end
-	end)
-end
-
-function loadUser(identifier, source, new)
-local _source = source
-	TriggerEvent("xrp_db:retrieveUser", identifier, function(_user)
+	TriggerEvent("redemrp_db:retrieveUser", identifier, function(_user)
 		if _user ~= nil then
-			local func = CreatePlayer(_source, _user.identifier, _user.name, _user.money, _user.gold, _user.license, _user.group, _user.firstname, _user.lastname, _user.xp, _user.level, _user.job, _user.jobgrade)
-			Users[_source] = func
-			Users[_source].setSessionVar('idType', 'identifier')
-			TriggerEvent('xrp:playerLoaded', _source, Users[_source]) -- TO OTHER RESOURCES
-			TriggerClientEvent('xrp:moneyLoaded', _source, Users[_source].getMoney())
-			TriggerClientEvent('xrp:goldLoaded', _source, Users[_source].getGold())
-			TriggerClientEvent('xrp:xpLoaded', _source, Users[_source].getXP())
-			TriggerClientEvent('xrp:levelLoaded', _source, Users[_source].getLevel())
-			TriggerClientEvent('xrp:showID', _source, _source)
-			
-			
-			if new then
-			TriggerEvent('xrp:firstTimeJoined', _source, Users[_source]) -- TO OTHER RESOURCES
-   --print("Player is new")
-else 
-    --print("Player arleady exist in databse")
-end
-			
-			
-	else
-	print("Can't Load User")
-	end
+			local rpPlayer = CreateRoleplayPlayer(_source, _user.identifier, _user.name, _user.money, _user.gold, _user.license, _user.group, _user.firstname, _user.lastname, _user.xp, _user.level, _user.job, _user.jobgrade)
+			Users[_source] = rpPlayer
 
+			for k,v in pairs(rpPlayer) do Users[k] = v end
 
+			TriggerEvent('redemrp:playerLoaded', _source, Users[_source]) -- TO OTHER RESOURCES
+			TriggerClientEvent('redemrp:moneyLoaded', _source, Users[_source].getMoney())
+			TriggerClientEvent('redemrp:goldLoaded', _source, Users[_source].getGold())
+			TriggerClientEvent('redemrp:xpLoaded', _source, Users[_source].getXP())
+			TriggerClientEvent('redemrp:levelLoaded', _source, Users[_source].getLevel())
+			TriggerClientEvent('redemrp:showID', _source, _source)
+		else
+			
+		end
+	end)
 end)
-end
 
-AddEventHandler("xrp:setPlayerData", function(user, k, v, cb)
+AddEventHandler("redemrp:setPlayerData", function(user, k, v, cb)
 	if(Users[user])then
 		if(Users[user].get(k))then
 			if(k ~= "money" and k ~= "gold") then
 				Users[user].set(k, v)
 
-				TriggerEvent("xrp_db:updateUser", Users[user].getIdentifier() , {[k] = v}, function(d)
+				TriggerEvent("redemrp_db:updateUser", Users[user].getIdentifier() , {[k] = v}, function(d)
 					if d == true then
 						cb("Player data edited", true)
 					else
@@ -125,7 +56,7 @@ AddEventHandler("xrp:setPlayerData", function(user, k, v, cb)
 	end
 end)
 
-AddEventHandler("xrp:getPlayerFromId", function(user, cb)
+AddEventHandler("redemrp:getPlayerFromId", function(user, cb)
 	if(Users)then
 		if(Users[user])then
 			cb(Users[user])
@@ -141,8 +72,8 @@ AddEventHandler('playerDropped', function()
 	local Source = source
 
 	if(Users[Source])then
-		TriggerEvent("xrp:playerDropped", Users[Source])
-		TriggerEvent("xrp_db:updateUser", Users[Source].getIdentifier() ,{name = Users[Source].getName(), money = Users[Source].getMoney(), gold = Users[Source].getGold(), xp = tonumber(Users[Source].getXP()), level = tonumber(Users[Source].getLevel())}, function()
+		TriggerEvent("redemrp:playerDropped", Users[Source])
+		TriggerEvent("redemrp_db:updateUser", Users[Source].getIdentifier() ,{name = Users[Source].getName(), money = Users[Source].getMoney(), gold = Users[Source].getGold(), xp = tonumber(Users[Source].getXP()), level = tonumber(Users[Source].getLevel())}, function()
 		Users[Source] = nil
 		end)
 	end
@@ -158,7 +89,7 @@ local function savePlayerMoney()
 		Citizen.CreateThread(function()
 			for k,v in pairs(Users)do
 				if Users[k] ~= nil then
-					TriggerEvent("xrp_db:updateUser", v.getIdentifier() ,{name = v.getName(), money = v.getMoney(), gold = v.getGold(), xp = tonumber(v.getXP()), level = tonumber(v.getLevel())}, function()
+					TriggerEvent("redemrp_db:updateUser", v.getIdentifier() ,{name = v.getName(), money = v.getMoney(), gold = v.getGold(), xp = tonumber(v.getXP()), level = tonumber(v.getLevel())}, function()
 					print("SAVING USER " .. v.getName() .. " - $: " .. v.getMoney() .. " - G: " .. v.getGold() .. " - XP: " .. tonumber(v.getXP()) .. " - LVL: " .. tonumber(v.getLevel()))
 					end)
 				end
@@ -171,7 +102,7 @@ end
 
 savePlayerMoney()
 
-AddEventHandler('xrp_db:doesUserExist', function(identifier, cb)
+AddEventHandler('redemrp_db:doesUserExist', function(identifier, cb)
     MySQL.Async.fetchAll('SELECT 1 FROM users WHERE `identifier`=@identifier;', {identifier = identifier}, function(users)
         if users[1] then
             cb(true)
@@ -181,7 +112,7 @@ AddEventHandler('xrp_db:doesUserExist', function(identifier, cb)
     end)
 end)
 
-AddEventHandler('xrp_db:createUser', function(identifier, license, name, cash, gold, callback)
+AddEventHandler('redemrp_db:createUser', function(identifier, license, name, cash, gold, callback)
 	local user = {
 		identifier = identifier,
 		name = name,
@@ -204,7 +135,7 @@ AddEventHandler('xrp_db:createUser', function(identifier, license, name, cash, g
 	end)
 end)
 
-AddEventHandler('xrp_db:doesUserExist', function(identifier, callback)
+AddEventHandler('redemrp_db:doesUserExist', function(identifier, callback)
 	MySQL.Async.fetchAll('SELECT 1 FROM users WHERE `identifier`=@identifier;', {identifier = identifier}, function(users)
 		if users[1] then
 			callback(true)
@@ -214,7 +145,7 @@ AddEventHandler('xrp_db:doesUserExist', function(identifier, callback)
 	end)
 end)
 
-AddEventHandler('xrp_db:retrieveUser', function(identifier, callback)
+AddEventHandler('redemrp_db:retrieveUser', function(identifier, callback)
 	local Callback = callback
 	MySQL.Async.fetchAll('SELECT * FROM users WHERE `identifier`=@identifier;', {identifier = identifier}, function(users)
 		if users[1] then
@@ -225,12 +156,12 @@ AddEventHandler('xrp_db:retrieveUser', function(identifier, callback)
 	end)
 end)
 
-RegisterServerEvent("xrp:getPlayerData")
-AddEventHandler("xrp:getPlayerData", function()
+RegisterServerEvent("redemrp:getPlayerData")
+AddEventHandler("redemrp:getPlayerData", function()
 -- TO DO
 end)
 
-AddEventHandler('xrp_db:updateUser', function(identifier, new, callback)
+AddEventHandler('redemrp_db:updateUser', function(identifier, new, callback)
 	Citizen.CreateThread(function()
 		local updateString = ""
 

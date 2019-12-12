@@ -1,12 +1,9 @@
-function CreatePlayer(source, identifier, name, money, gold, license, group, firstname, lastname, xp, level, job, jobgrade)
+function CreateRoleplayPlayer(source, identifier, name, money, gold, license, group, firstname, lastname, xp, level, job, jobgrade)
 	local self = {}
 
 	self.source = source
-	self.money = money
 	self.name = name
 	self.gold = gold
-	self.identifier = identifier
-	self.license = license
 	self.group = group
 	self.firstname = firstname
 	self.lastname = lastname
@@ -14,43 +11,20 @@ function CreatePlayer(source, identifier, name, money, gold, license, group, fir
 	self.level = level
 	self.job = job
 	self.jobgrade = jobgrade
-	self.session = {}
-
-	ExecuteCommand('add_principal identifier.' .. self.identifier .. " group." .. self.group)
 
 	local rTable = {}
-
-	rTable.setMoney = function(m)
-		if type(m) == "number" then
-			local prevMoney = self.money
-			local newMoney = m
-
-			self.money = m
-
-			TriggerClientEvent('xrp:addMoney', self.source, self.money)
-			TriggerClientEvent('xrp:activateMoney', self.source , self.money)
-
-
-		else
-			print('XRP_ERROR: There seems to be an issue while setting money, something else then a number was entered.')
-		end
-	end
-	
-	rTable.getMoney = function()
-		return self.money
-	end
 
 	-- SETS LEVELwXP
 	rTable.setLevelwXP = function(m)
 		if type(m) == "number" then
 			if m > self.level then
 				self.level = m
-				TriggerClientEvent('xrp:addLevel', self.source, m)
-				TriggerClientEvent('xrp:activateLevel', self.source , self.level)
+				TriggerClientEvent('redemrp:addLevel', self.source, m)
+				TriggerClientEvent('redemrp:activateLevel', self.source , self.level)
 			else
 				self.level = m
-				TriggerClientEvent('xrp:removeLevel', self.source, m)
-				TriggerClientEvent('xrp:activateLevel', self.source , self.level)
+				TriggerClientEvent('redemrp:removeLevel', self.source, m)
+				TriggerClientEvent('redemrp:activateLevel', self.source , self.level)
 			end
 
 		else
@@ -63,8 +37,8 @@ function CreatePlayer(source, identifier, name, money, gold, license, group, fir
 			
 				self.level = m
 				rTable.addXP(Levels[m] - self.xp)
-				TriggerClientEvent('xrp:addLevel', self.source, self.level)
-				TriggerClientEvent('xrp:activateLevel', self.source , self.level)
+				TriggerClientEvent('redemrp:addLevel', self.source, self.level)
+				TriggerClientEvent('redemrp:activateLevel', self.source , self.level)
 
 		else
 			print('XRP_ERROR: There seems to be an issue while setting level, something else then a number was entered.')
@@ -74,8 +48,8 @@ function CreatePlayer(source, identifier, name, money, gold, license, group, fir
 	rTable.setXP = function(m)
 		if type(m) == "number" then
 				self.xp = m
-				TriggerClientEvent('xrp:addXP', self.source, m)
-				TriggerClientEvent('xrp:activateXP', self.source , self.xp)
+				TriggerClientEvent('redemrp:addXP', self.source, m)
+				TriggerClientEvent('redemrp:activateXP', self.source , self.xp)
 			local case = 1, lvlNow, lvlNew
             while true do
                 if self.xp > Levels[case] then
@@ -109,7 +83,7 @@ function CreatePlayer(source, identifier, name, money, gold, license, group, fir
 	
 	rTable.setFirstname = function(m)
 		if type(m) == "string" then
-			TriggerEvent("xrp:setPlayerData", self.source, "firstname", m, function(response, success)
+			TriggerEvent("redemrp:setPlayerData", self.source, "firstname", m, function(response, success)
 				self.firstname = m
 			end)
 		else
@@ -119,7 +93,7 @@ function CreatePlayer(source, identifier, name, money, gold, license, group, fir
 	
 	rTable.setLastname = function(m)
 		if type(m) == "string" then
-			TriggerEvent("xrp:setPlayerData", self.source, "lastname", m, function(response, success)
+			TriggerEvent("redemrp:setPlayerData", self.source, "lastname", m, function(response, success)
 				self.lastname = m
 			end)
 		else
@@ -129,7 +103,7 @@ function CreatePlayer(source, identifier, name, money, gold, license, group, fir
 
 	rTable.setJob = function(m)
 		if type(m) == "string" then
-			TriggerEvent("xrp:setPlayerData", self.source, "job", m, function(response, success)
+			TriggerEvent("redemrp:setPlayerData", self.source, "job", m, function(response, success)
 				self.job = m
 			end)
 		else
@@ -139,7 +113,7 @@ function CreatePlayer(source, identifier, name, money, gold, license, group, fir
 
 	rTable.setJobgrade = function(m)
 		if type(m) == "number" then
-			TriggerEvent("xrp:setPlayerData", self.source, "jobgrade", m, function(response, success)
+			TriggerEvent("redemrp:setPlayerData", self.source, "jobgrade", m, function(response, success)
 				self.jobgrade = m
 			end)
 		else
@@ -147,7 +121,7 @@ function CreatePlayer(source, identifier, name, money, gold, license, group, fir
 		end
 	end
 	
-rTable.addXP = function(m)
+	rTable.addXP = function(m)
         if type(m) == "number" then
             local newXP = self.xp + m
 
@@ -181,12 +155,12 @@ rTable.addXP = function(m)
 			--self.xp = newXP
 			if newXP > self.xp then
 				self.xp = newXP
-			TriggerClientEvent('xrp:addXP', self.source, m)
-			TriggerClientEvent('xrp:activateXP', self.source , self.xp)
+			TriggerClientEvent('redemrp:addXP', self.source, m)
+			TriggerClientEvent('redemrp:activateXP', self.source , self.xp)
 			else
 				self.xp = newXP
-			TriggerClientEvent('xrp:removeXP', self.source, m)
-			TriggerClientEvent('xrp:activateXP', self.source , self.xp)
+			TriggerClientEvent('redemrp:removeXP', self.source, m)
+			TriggerClientEvent('redemrp:activateXP', self.source , self.xp)
 			end
             
         else
@@ -199,8 +173,8 @@ rTable.addXP = function(m)
 		if type(m) == "number" then
 				self.gold = m
 
-			TriggerClientEvent('xrp:addGold', self.source, self.gold)
-			TriggerClientEvent('xrp:activateGold', self.source , self.gold)
+			TriggerClientEvent('redemrp:addGold', self.source, self.gold)
+			TriggerClientEvent('redemrp:activateGold', self.source , self.gold)
 		else
 			print('XRP_ERROR: There seems to be an issue while setting gold, something else then a number was entered.')
 		end
@@ -223,8 +197,8 @@ rTable.addXP = function(m)
 			
 	
 
-			TriggerClientEvent('xrp:addMoney', self.source, m)
-			TriggerClientEvent('xrp:activateMoney', self.source , self.money)
+			TriggerClientEvent('redemrp:addMoney', self.source, m)
+			TriggerClientEvent('redemrp:activateMoney', self.source , self.money)
 		else
 			print('XRP_ERROR: There seems to be an issue while adding money, a different type then number was trying to be added.')
 		end
@@ -237,8 +211,8 @@ rTable.addXP = function(m)
 
 			self.money = newMoney
 
-			TriggerClientEvent('xrp:removeMoney', self.source, m)
-			TriggerClientEvent('xrp:activateMoney', self.source , self.money)
+			TriggerClientEvent('redemrp:removeMoney', self.source, m)
+			TriggerClientEvent('redemrp:activateMoney', self.source , self.money)
 		else
 			print('XRP_ERROR: There seems to be an issue while removing money, a different type then number was trying to be removed.')
 		end
@@ -250,8 +224,8 @@ rTable.addXP = function(m)
 			local newGold = self.gold + m
 			self.gold = newGold
 
-			TriggerClientEvent('xrp:addGold', self.source, m)
-			TriggerClientEvent('xrp:activateGold', self.source , self.gold)
+			TriggerClientEvent('redemrp:addGold', self.source, m)
+			TriggerClientEvent('redemrp:activateGold', self.source , self.gold)
 		else
 			print('XRP_ERROR: There seems to be an issue while adding to gold, a different type then number was trying to be added.')
 		end
@@ -263,8 +237,8 @@ rTable.addXP = function(m)
 			local newGold = self.gold - m
 			self.gold = newGold
 			
-			TriggerClientEvent('xrp:removeGold', self.source, m)
-			TriggerClientEvent('xrp:activateGold', self.source , self.gold)
+			TriggerClientEvent('redemrp:removeGold', self.source, m)
+			TriggerClientEvent('redemrp:activateGold', self.source , self.gold)
 		else
 			print('XRP_ERROR: There seems to be an issue while removing from gold, a different type then number was trying to be removed.')
 		end

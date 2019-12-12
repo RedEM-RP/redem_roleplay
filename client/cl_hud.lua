@@ -12,31 +12,31 @@ Citizen.CreateThread(function()
 RegisterCommand("hud", function(source, args, rawCommand) -- Its showing/hiding hud - just a dev command
 if (hidehud ~= false) then
 	hidehud = false
-	TriggerEvent("xrp:showHUD")
+	TriggerEvent("redemrp:showHUD")
 	DisplayHud(true)
 	else
 	hidehud = true
 	DisplayHud(false)
-	TriggerEvent("xrp:hideHUD")
+	TriggerEvent("redemrp:hideHUD")
 	end
 end, false)	
 	
-RegisterNetEvent('xrp:showHUD')
-AddEventHandler('xrp:showHUD', function()
+RegisterNetEvent('redemrp:showHUD')
+AddEventHandler('redemrp:showHUD', function()
 	SendNUIMessage({
 		showhud = true
 	})
 end)	
 
-RegisterNetEvent('xrp:hideHUD')
-AddEventHandler('xrp:hideHUD', function()
+RegisterNetEvent('redemrp:hideHUD')
+AddEventHandler('redemrp:hideHUD', function()
 	SendNUIMessage({
 		hidehud = true
 	})
 end)	
 	
-RegisterNetEvent('xrp:showID')
-AddEventHandler('xrp:showID', function(_id)
+RegisterNetEvent('redemrp:showID')
+AddEventHandler('redemrp:showID', function(_id)
 if Config.ShowID then
 	SendNUIMessage({
 		showid = true,
@@ -45,32 +45,32 @@ if Config.ShowID then
 	else end
 end)	
 	
-RegisterNetEvent('xrp:activateMoney')
-AddEventHandler('xrp:activateMoney', function(_money)
+RegisterNetEvent('redemrp:activateMoney')
+AddEventHandler('redemrp:activateMoney', function(_money)
 	SendNUIMessage({
 		setmoney = true,
 		money = _money
 	})
 end)
 
-RegisterNetEvent('xrp:activateGold')
-AddEventHandler('xrp:activateGold', function(_gold)
+RegisterNetEvent('redemrp:activateGold')
+AddEventHandler('redemrp:activateGold', function(_gold)
 	SendNUIMessage({
 		setgold = true,
 		gold = _gold
 	})
 end)	
 	
-RegisterNetEvent("xrp:moneyLoaded")
-AddEventHandler("xrp:moneyLoaded", function(_money)
+RegisterNetEvent("redemrp:moneyLoaded")
+AddEventHandler("redemrp:moneyLoaded", function(_money)
 		SendNUIMessage({
 		setmoney = true,
 		money = _money
 	})
 end)
 
-RegisterNetEvent("xrp:xpLoaded")
-AddEventHandler("xrp:xpLoaded", function(_xp)
+RegisterNetEvent("redemrp:xpLoaded")
+AddEventHandler("redemrp:xpLoaded", function(_xp)
 if Config.ShowXPandLevel then
 		SendNUIMessage({
 		setxp = true,
@@ -79,8 +79,8 @@ if Config.ShowXPandLevel then
 else end
 end)
 
-RegisterNetEvent("xrp:levelLoaded")
-AddEventHandler("xrp:levelLoaded", function(_level)
+RegisterNetEvent("redemrp:levelLoaded")
+AddEventHandler("redemrp:levelLoaded", function(_level)
 	if Config.ShowXPandLevel then
 		SendNUIMessage({
 		setlevel = true,
@@ -89,8 +89,8 @@ AddEventHandler("xrp:levelLoaded", function(_level)
 else end
 end)
 
-RegisterNetEvent('xrp:activateXP')
-AddEventHandler('xrp:activateXP', function(_xp)
+RegisterNetEvent('redemrp:activateXP')
+AddEventHandler('redemrp:activateXP', function(_xp)
 	if Config.ShowXPandLevel then
 	SendNUIMessage({
 		setxp = true,
@@ -99,8 +99,8 @@ AddEventHandler('xrp:activateXP', function(_xp)
 else end
 end)	
 
-RegisterNetEvent('xrp:activateLevel')
-AddEventHandler('xrp:activateLevel', function(_level)
+RegisterNetEvent('redemrp:activateLevel')
+AddEventHandler('redemrp:activateLevel', function(_level)
 	if Config.ShowXPandLevel then
 	SendNUIMessage({
 		setlevel = true,
@@ -109,8 +109,8 @@ AddEventHandler('xrp:activateLevel', function(_level)
 else end
 end)
 
-RegisterNetEvent("xrp:goldLoaded")
-AddEventHandler("xrp:goldLoaded", function(_gold)
+RegisterNetEvent("redemrp:goldLoaded")
+AddEventHandler("redemrp:goldLoaded", function(_gold)
 	SendNUIMessage({
 		setgold = true,
 		gold = _gold
@@ -119,16 +119,16 @@ end)
 
 
 -- Updating
-RegisterNetEvent("xrp:addMoney")
-AddEventHandler("xrp:addMoney", function(_money, native, current)
+RegisterNetEvent("redemrp:addMoney")
+AddEventHandler("redemrp:addMoney", function(_money, native, current)
 	SendNUIMessage({
 			addcash = true,
 			money = _money
 		})
 end)
 
-RegisterNetEvent("xrp:addXP")
-AddEventHandler("xrp:addXP", function(_xp, native, current)
+RegisterNetEvent("redemrp:addXP")
+AddEventHandler("redemrp:addXP", function(_xp, native, current)
 	if Config.ShowXPandLevel then
 	SendNUIMessage({
 			addxp = true,
@@ -137,8 +137,8 @@ AddEventHandler("xrp:addXP", function(_xp, native, current)
 	else end
 end)
 
-RegisterNetEvent("xrp:removeXP")
-AddEventHandler("xrp:removeXP", function(_xp, native, current)
+RegisterNetEvent("redemrp:removeXP")
+AddEventHandler("redemrp:removeXP", function(_xp, native, current)
 	if Config.ShowXPandLevel then
 	SendNUIMessage({
 			removexp = true,
@@ -147,8 +147,8 @@ AddEventHandler("xrp:removeXP", function(_xp, native, current)
 	else end
 end)
 
-RegisterNetEvent("xrp:removeLevel")
-AddEventHandler("xrp:removeLevel", function(_level, native, current)
+RegisterNetEvent("redemrp:removeLevel")
+AddEventHandler("redemrp:removeLevel", function(_level, native, current)
 	if Config.ShowXPandLevel then
 	SendNUIMessage({
 			removelevel = true,
@@ -157,8 +157,8 @@ AddEventHandler("xrp:removeLevel", function(_level, native, current)
 	else end
 end)
 
-RegisterNetEvent("xrp:addLevel")
-AddEventHandler("xrp:addLevel", function(_level, native, current)
+RegisterNetEvent("redemrp:addLevel")
+AddEventHandler("redemrp:addLevel", function(_level, native, current)
 	if Config.ShowXPandLevel then
 	SendNUIMessage({
 			addlevel = true,
@@ -167,24 +167,24 @@ AddEventHandler("xrp:addLevel", function(_level, native, current)
 	else end
 end)
 
-RegisterNetEvent("xrp:addGold")
-AddEventHandler("xrp:addGold", function(_gold, native, current)
+RegisterNetEvent("redemrp:addGold")
+AddEventHandler("redemrp:addGold", function(_gold, native, current)
 	SendNUIMessage({
 			addgold = true,
 			gold = _gold
 		})
 end)
 
-RegisterNetEvent("xrp:removeMoney")
-AddEventHandler("xrp:removeMoney", function(_money, native, current)
+RegisterNetEvent("redemrp:removeMoney")
+AddEventHandler("redemrp:removeMoney", function(_money, native, current)
 	SendNUIMessage({
 			removecash = true,
 			money = _money
 		})
 end)
 
-RegisterNetEvent("xrp:removeGold")
-AddEventHandler("xrp:removeGold", function(_gold, native, current)
+RegisterNetEvent("redemrp:removeGold")
+AddEventHandler("redemrp:removeGold", function(_gold, native, current)
 	SendNUIMessage({
 			removegold = true,
 			gold = _gold
