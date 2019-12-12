@@ -8,10 +8,6 @@ _UUID = LoadResourceFile(GetCurrentResourceName(), "uuid") or "unknown"
 
 Users = {}
 
-AddEventHandler("redemrp:getPlayerFromId", function(userid, callback)
-	callback(Users[userid])
-end)
-
 RegisterServerEvent("redemrp:selectCharacter")
 AddEventHandler("redemrp:selectCharacter", function(character)
 	local _source = source
