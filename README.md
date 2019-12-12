@@ -13,10 +13,10 @@ Join our discord to get the newest updates and support! - https://discord.gg/FKH
 - Permission System
 - Job System
 - Unlimited Jobs
-- 20 Job Grades
-- Inventory System [in build]
-- HUD
-- Leveling and EXP system
+- Unlimited Job Grades
+- Inventory System [not done yet]
+- Customizable HUD
+- Leveling and EXP system (Unlimited Level support)
 - Up to 10 Characters - ########
 - Respawn Place Selection - #########
 - A lot of configuration options
@@ -48,8 +48,9 @@ ensure redem
 ensure redem_roleplay
 ```
 
-## 4. Usage
-Join our discord to get the newest updates and support! - https://discord.gg/FKH4uwb
+## 4. Documentation and Usage
+Currently there is no official documentation yet, u can check things on discord [Join RedEM Discord](https://discord.gg/FKH4uwb)
+It will be avaiable later on [This page](https://redemrp.org/)
 
 ## 5. Credits
 
