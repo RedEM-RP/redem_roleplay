@@ -54,4 +54,4 @@ It will be avaiable later on [This page](https://redemrp.org/)
 
 ## 5. Credits
 
-https://github.com/kanersps for all work he done, his scripts is the basics of the xrp framework
+https://github.com/kanersps for all work he done, his scripts is the basics of the xrp framework test
