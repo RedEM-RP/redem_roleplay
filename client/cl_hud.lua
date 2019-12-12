@@ -23,6 +23,14 @@ end, false)
 	
 RegisterNetEvent('redemrp:showHUD')
 AddEventHandler('redemrp:showHUD', function()
+	Citizen.Trace("SHOW HUD\n")
+	Citizen.Trace("SHOW HUD\n")
+	Citizen.Trace("SHOW HUD\n")
+	Citizen.Trace("SHOW HUD\n")
+	Citizen.Trace("SHOW HUD\n")
+	Citizen.Trace("SHOW HUD\n")
+	Citizen.Trace("SHOW HUD\n")
+	Citizen.Trace("SHOW HUD\n")
 	SendNUIMessage({
 		showhud = true
 	})
@@ -63,7 +71,7 @@ end)
 	
 RegisterNetEvent("redemrp:moneyLoaded")
 AddEventHandler("redemrp:moneyLoaded", function(_money)
-		SendNUIMessage({
+	SendNUIMessage({
 		setmoney = true,
 		money = _money
 	})

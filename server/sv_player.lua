@@ -249,7 +249,7 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
 	end
 	
 	rTable.getName = function()
-		return self.name
+		return self.firstname .. " " .. self.lastname
 	end
 	
 	rTable.getLevel = function()

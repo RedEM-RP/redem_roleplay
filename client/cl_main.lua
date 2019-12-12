@@ -3,16 +3,49 @@
 
 --print("LUA: " .. "Version: " .. _VERSION .. " LOADED!")
 
+local firstSpawn = false
+
 function printClient(message)
     print("RedEM_Roleplay: " .. message)
 end
 
+Citizen.CreateThread(function()
+    while firstSpawn == false do
+        local spawned = Citizen.InvokeNative(0xB8DFD30D6973E135 --[[NetworkIsPlayerActive]], PlayerPedId(), Citizen.ResultAsInteger())
+        if spawned then
+            ShutdownLoadingScreen()
+            NetworkResurrectLocalPlayer(-189.47, 630.58, 114.93, 59.95, true, true, false)
+            local ped = PlayerPedId()
+            SetEntityCoordsNoOffset(ped, -189.47, 630.58, 114.93, false, false, false, true)
+            ClearPedTasksImmediately(ped)
+            ClearPlayerWantedLevel(PlayerId())
+            FreezeEntityPosition(ped, false)
+            SetPlayerInvincible(PlayerId(), false)
+            SetEntityVisible(ped, true)
+            SetEntityCollision(ped, true)
+            TriggerEvent('playerSpawned', spawn)
+            Citizen.InvokeNative(0xF808475FA571D823, true)
+            NetworkSetFriendlyFireOption(true)
+            firstSpawn = true
+            print("SPAWN")
+            print("SPAWN")
+            print("SPAWN")
+            print("SPAWN")
+            print("SPAWN")
+            print("SPAWN")
+            print("SPAWN")
+            print("SPAWN")
+        end
+    end
+end)
+
 CreateThread(function()
-  while true do
-    Wait(0)
-	if Config.pvp then
-        Citizen.InvokeNative(0xF808475FA571D823, true) --enable friendly fire
-        NetworkSetFriendlyFireOption(true)
+    while true do
+        Wait(0)
+	    if Config.pvp then
+            Citizen.InvokeNative(0xF808475FA571D823, true) --enable friendly fire
+            NetworkSetFriendlyFireOption(true)
+        end
     end
 end)
 

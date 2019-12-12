@@ -8,14 +8,31 @@ _UUID = LoadResourceFile(GetCurrentResourceName(), "uuid") or "unknown"
 
 Users = {}
 
-AddEventHandler("redem:playerLoaded", function(_source, user)
+RegisterCommand("sc", function(source, args, rawCommand)
 	local _source = source
-	TriggerEvent("redemrp_db:retrieveUser", identifier, function(_user)
-		if _user ~= nil then
+	TriggerEvent("redem:getPlayerFromId", _source, function(user)
+		loadCharacter(_source, user, args[1])
+	end)
+end)
+
+RegisterCommand("ac", function(source, args, rawCommand)
+	local _source = source
+	TriggerEvent("redem:getPlayerFromId", _source, function(user)
+		addCharacter(_source, user, args[1], args[2])
+	end)
+end)
+
+function loadCharacter(_source, user, charid)
+	TriggerEvent("redemrp_db:retrieveUser", user.getIdentifier(), charid, function(_user)
+		if _user ~= false then
 			local rpPlayer = CreateRoleplayPlayer(_source, _user.identifier, _user.name, _user.money, _user.gold, _user.license, _user.group, _user.firstname, _user.lastname, _user.xp, _user.level, _user.job, _user.jobgrade)
 			Users[_source] = rpPlayer
 
-			for k,v in pairs(rpPlayer) do Users[k] = v end
+			for k,v in pairs(user) do Users[_source][k] = v end
+
+			-- Set character related stuff
+			Users[_source].setMoney(_user.money)
+			Users[_source].setSessionVar("charid", charid)
 
 			TriggerEvent('redemrp:playerLoaded', _source, Users[_source]) -- TO OTHER RESOURCES
 			TriggerClientEvent('redemrp:moneyLoaded', _source, Users[_source].getMoney())
@@ -24,36 +41,21 @@ AddEventHandler("redem:playerLoaded", function(_source, user)
 			TriggerClientEvent('redemrp:levelLoaded', _source, Users[_source].getLevel())
 			TriggerClientEvent('redemrp:showID', _source, _source)
 		else
-			
+			print("That character does not exist!")
 		end
 	end)
-end)
+end
 
-AddEventHandler("redemrp:setPlayerData", function(user, k, v, cb)
-	if(Users[user])then
-		if(Users[user].get(k))then
-			if(k ~= "money" and k ~= "gold") then
-				Users[user].set(k, v)
-
-				TriggerEvent("redemrp_db:updateUser", Users[user].getIdentifier() , {[k] = v}, function(d)
-					if d == true then
-						cb("Player data edited", true)
-					else
-						cb(d, false)
-					end
-					
-				end)
-			end
-			
-			if(k == "group") then
-				Users[user].set(k, v)
-			end
-		else
-			cb("Column does not exist!", false)
-		end
-	else
-		cb("User could not be found!", false)
+function addCharacter(_source, user, firstname, lastname)
+	if(firstname and lastname)then
+		TriggerEvent("redemrp_db:createUser", user.getIdentifier(), firstname, lastname, function()
+			print("Character made!")
+		end)
 	end
+end
+
+AddEventHandler("redem:playerLoaded", function(_source, user)
+
 end)
 
 AddEventHandler("redemrp:getPlayerFromId", function(user, cb)
@@ -73,7 +75,7 @@ AddEventHandler('playerDropped', function()
 
 	if(Users[Source])then
 		TriggerEvent("redemrp:playerDropped", Users[Source])
-		TriggerEvent("redemrp_db:updateUser", Users[Source].getIdentifier() ,{name = Users[Source].getName(), money = Users[Source].getMoney(), gold = Users[Source].getGold(), xp = tonumber(Users[Source].getXP()), level = tonumber(Users[Source].getLevel())}, function()
+		TriggerEvent("redemrp_db:updateUser", Users[Source].getIdentifier(), tonumber(Users[Source].getSessionVar("charid")), {money = Users[Source].getMoney(), gold = Users[Source].getGold(), xp = tonumber(Users[Source].getXP()), level = tonumber(Users[Source].getLevel())}, function()
 		Users[Source] = nil
 		end)
 	end
@@ -89,8 +91,7 @@ local function savePlayerMoney()
 		Citizen.CreateThread(function()
 			for k,v in pairs(Users)do
 				if Users[k] ~= nil then
-					TriggerEvent("redemrp_db:updateUser", v.getIdentifier() ,{name = v.getName(), money = v.getMoney(), gold = v.getGold(), xp = tonumber(v.getXP()), level = tonumber(v.getLevel())}, function()
-					print("SAVING USER " .. v.getName() .. " - $: " .. v.getMoney() .. " - G: " .. v.getGold() .. " - XP: " .. tonumber(v.getXP()) .. " - LVL: " .. tonumber(v.getLevel()))
+						TriggerEvent("redemrp_db:updateUser", v.getIdentifier(), tonumber(v.getSessionVar("charid")), {money = v.getMoney(), gold = v.getGold(), xp = tonumber(v.getXP()), level = tonumber(v.getLevel())}, function()
 					end)
 				end
 			end
@@ -112,56 +113,33 @@ AddEventHandler('redemrp_db:doesUserExist', function(identifier, cb)
     end)
 end)
 
-AddEventHandler('redemrp_db:createUser', function(identifier, license, name, cash, gold, callback)
-	local user = {
-		identifier = identifier,
-		name = name,
-		money = cash or 0,
-		gold = gold or 0,
-		license = license,
-		group = 'user'
-	}
-
-	MySQL.Async.execute('INSERT INTO users (`identifier`, `money`, `gold`, `group`, `license`, `name`) VALUES (@identifier, @money, @gold, @group, @license, @name);',
-	{
-		identifier = user.identifier,
-		name = user.name,
-		money = user.money,
-		gold = user.gold,
-		group = user.group,
-		license = user.license
-	}, function(rowsChanged)
-		callback()
+AddEventHandler('redemrp_db:createUser', function(identifier, firstname, lastname, callback)
+	MySQL.Async.fetchAll('SELECT * FROM characters WHERE `identifier`=@identifier', {identifier = identifier}, function(users)
+		MySQL.Async.execute('INSERT INTO characters (`identifier`, `firstname`, `lastname`, `characterid`) VALUES (@identifier, @firstname, @lastname, @characterid);',
+		{
+			identifier = identifier,
+			firstname = firstname,
+			lastname = lastname,
+			characterid = (#users + 1)
+			
+		}, function(rowsChanged)
+			callback()
+		end)
 	end)
 end)
 
-AddEventHandler('redemrp_db:doesUserExist', function(identifier, callback)
-	MySQL.Async.fetchAll('SELECT 1 FROM users WHERE `identifier`=@identifier;', {identifier = identifier}, function(users)
+AddEventHandler('redemrp_db:retrieveUser', function(identifier, charid, callback)
+	local SavedCallback = callback
+	MySQL.Async.fetchAll('SELECT * FROM characters WHERE `identifier`=@identifier AND `characterid`=@characterid;', {identifier = identifier, characterid = charid}, function(users)
 		if users[1] then
-			callback(true)
+			SavedCallback(users[1])
 		else
-			callback(false)
+			SavedCallback(false)
 		end
 	end)
 end)
 
-AddEventHandler('redemrp_db:retrieveUser', function(identifier, callback)
-	local Callback = callback
-	MySQL.Async.fetchAll('SELECT * FROM users WHERE `identifier`=@identifier;', {identifier = identifier}, function(users)
-		if users[1] then
-			Callback(users[1])
-		else
-			Callback(false)
-		end
-	end)
-end)
-
-RegisterServerEvent("redemrp:getPlayerData")
-AddEventHandler("redemrp:getPlayerData", function()
--- TO DO
-end)
-
-AddEventHandler('redemrp_db:updateUser', function(identifier, new, callback)
+AddEventHandler('redemrp_db:updateUser', function(identifier, charid, new, callback)
 	Citizen.CreateThread(function()
 		local updateString = ""
 
@@ -183,7 +161,7 @@ AddEventHandler('redemrp_db:updateUser', function(identifier, new, callback)
 			end
 			cLength = cLength + 1
 		end
-		MySQL.Async.execute('UPDATE users SET ' .. updateString .. ' WHERE `identifier`=@identifier', {identifier = identifier}, function(done)
+		MySQL.Async.execute('UPDATE characters SET ' .. updateString .. ' WHERE `identifier`=@identifier AND `characterid`=@characterid', {identifier = identifier, characterid = charid}, function(done)
 			if callback then
 				callback(true)
 			end
