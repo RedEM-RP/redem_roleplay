@@ -4,9 +4,9 @@
 Join our discord to get the newest updates and support! - https://discord.gg/FKH4uwb
 
 ## 1. Features
-- Respawn/Spawn system - https://github.com/amakuu/xrp_respawn/
+- Respawn/Spawn system - #######
 - Loading And Saving Player Information in MySQL databse
-- Multicharacter system - https://github.com/amakuu/xrp_identity
+- Multicharacter system - #######
 - Money System
 - Gold System
 - Groups System
@@ -17,22 +17,22 @@ Join our discord to get the newest updates and support! - https://discord.gg/FKH
 - Inventory System [in build]
 - HUD
 - Leveling and EXP system
-- Up to 10 Characters - https://github.com/amakuu/xrp_identity
-- Respawn Place Selection - https://github.com/amakuu/xrp_respawn/
+- Up to 10 Characters - ########
+- Respawn Place Selection - #########
 - A lot of configuration options
 
 ## 2. Requirements
  
 [fivem-mysql-async and async](https://github.com/amakuu/mysql-async-temporary)
 
-[xrp_identity](https://github.com/amakuu/xrp_identity)
+[redem](https://github.com/kanersps/redem)
+
+[esplugin_mysql](https://github.com/kanersps/esplugin_mysql)
 
 ## 3. Installation
 - Put fivem-mysql-async into server-data/resources/ and rename it to mysql-async
 
-- Put async into server-data/resources/ and be sure that the folder name is async
-
-- Put the xrp folder in server-data/resources/[xrp]/ - if you don't have [xrp], just create a new one
+- Put the redem_roleplay folder in server-data/resources/[redemrp]/ - if you don't have [redemrp], just create a new one
 
 - Import db.sql into your mysql database
 
@@ -40,11 +40,12 @@ Join our discord to get the newest updates and support! - https://discord.gg/FKH
 
 
 ```
-set mysql_connection_string "server=ip;uid=user_name;password=very_secure_password;database=xrp"
+set es_enableCustomData 1
+set mysql_connection_string "server=ip;uid=user_name;password=very_secure_password;database=redemrp"
+ensure esplugin_mysql
 ensure mysql-async
-ensure async
-ensure xrp
-ensure xrp_identity
+ensure redem
+ensure redem_roleplay
 ```
 
 ## 4. Usage
