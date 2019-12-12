@@ -8,6 +8,23 @@ _UUID = LoadResourceFile(GetCurrentResourceName(), "uuid") or "unknown"
 
 Users = {}
 
+
+RegisterServerEvent("redemrp:selectCharacter")
+AddEventHandler("redemrp:selectCharacter", function(character)
+	local _source = source
+	TriggerEvent("redem:getPlayerFromId", _source, function(user)
+		loadCharacter(_source, user, character)
+	end)	
+end)
+
+RegisterServerEvent("redemrp:createCharacter")
+AddEventHandler("redemrp:createCharacter", function(firstname, lastname)
+	local _source = source
+	TriggerEvent("redem:getPlayerFromId", _source, function(user)
+		addCharacter(_source, user, firstname, lastname)
+	end)
+end)
+
 RegisterCommand("sc", function(source, args, rawCommand)
 	local _source = source
 	TriggerEvent("redem:getPlayerFromId", _source, function(user)
@@ -48,8 +65,9 @@ end
 
 function addCharacter(_source, user, firstname, lastname)
 	if(firstname and lastname)then
-		TriggerEvent("redemrp_db:createUser", user.getIdentifier(), firstname, lastname, function()
+		TriggerEvent("redemrp_db:createUser", user.getIdentifier(), firstname, lastname, function(charID)
 			print("Character made!")
+			loadCharacter(_source, user, charID)
 		end)
 	end
 end
@@ -115,15 +133,16 @@ end)
 
 AddEventHandler('redemrp_db:createUser', function(identifier, firstname, lastname, callback)
 	MySQL.Async.fetchAll('SELECT * FROM characters WHERE `identifier`=@identifier', {identifier = identifier}, function(users)
+		local charID = (#users + 1)
 		MySQL.Async.execute('INSERT INTO characters (`identifier`, `firstname`, `lastname`, `characterid`) VALUES (@identifier, @firstname, @lastname, @characterid);',
 		{
 			identifier = identifier,
 			firstname = firstname,
 			lastname = lastname,
-			characterid = (#users + 1)
+			characterid = charID
 			
 		}, function(rowsChanged)
-			callback()
+			callback(charID)
 		end)
 	end)
 end)
