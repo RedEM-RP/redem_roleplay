@@ -2,7 +2,6 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
 	local self = {}
 
 	self.source = source
-	self.name = name
 	self.gold = gold
 	self.group = group
 	self.firstname = firstname
