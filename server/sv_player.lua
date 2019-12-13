@@ -28,7 +28,7 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
 			end
 
 		else
-			print('XRP_ERROR: There seems to be an issue while setting level, something else then a number was entered.')
+			print('REDEMRP_ERROR: There seems to be an issue while setting level, something else then a number was entered.')
 		end
 	end
 	-- SETS LEVEL
@@ -41,7 +41,7 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
 				TriggerClientEvent('redemrp:activateLevel', self.source , self.level)
 
 		else
-			print('XRP_ERROR: There seems to be an issue while setting level, something else then a number was entered.')
+			print('REDEMRP_ERROR: There seems to be an issue while setting level, something else then a number was entered.')
 		end
 	end
 	
@@ -77,7 +77,7 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
         --print("Old level " .. lvlNow .. " == " .. lvlNew)
             end
 		else
-			print('XRP_ERROR: There seems to be an issue while setting xp, something else then a number was entered.')
+			print('REDEMRP_ERROR: There seems to be an issue while setting xp, something else then a number was entered.')
 		end
 	end
 	
@@ -87,7 +87,7 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
 				self.firstname = m
 			end)
 		else
-			print('XRP_ERROR: There seems to be an issue while setting firstname, something else then a text was entered.')
+			print('REDEMRP_ERROR: There seems to be an issue while setting firstname, something else then a text was entered.')
 		end
 	end
 	
@@ -97,7 +97,7 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
 				self.lastname = m
 			end)
 		else
-			print('XRP_ERROR: There seems to be an issue while setting lastname, something else then a text was entered.')
+			print('REDEMRP_ERROR: There seems to be an issue while setting lastname, something else then a text was entered.')
 		end
 	end
 
@@ -107,7 +107,7 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
 				self.job = m
 			end)
 		else
-			print('XRP_ERROR: There seems to be an issue while setting job, something else then a text was entered.')
+			print('REDEMRP_ERROR: There seems to be an issue while setting job, something else then a text was entered.')
 		end
 	end
 
@@ -117,7 +117,7 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
 				self.jobgrade = m
 			end)
 		else
-			print('XRP_ERROR: There seems to be an issue while setting jobgrade, something else then a text was entered.')
+			print('REDEMRP_ERROR: There seems to be an issue while setting jobgrade, something else then a text was entered.')
 		end
 	end
 	
@@ -164,7 +164,7 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
 			end
             
         else
-            print('XRP_ERROR: There seems to be an issue while adding xp, a different type then number was trying to be added.')
+            print('REDEMRP_ERROR: There seems to be an issue while adding xp, a different type then number was trying to be added.')
         end
     end
 	
@@ -176,7 +176,7 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
 			TriggerClientEvent('redemrp:addGold', self.source, self.gold)
 			TriggerClientEvent('redemrp:activateGold', self.source , self.gold)
 		else
-			print('XRP_ERROR: There seems to be an issue while setting gold, something else then a number was entered.')
+			print('REDEMRP_ERROR: There seems to be an issue while setting gold, something else then a number was entered.')
 		end
 	end
 
@@ -200,7 +200,7 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
 			TriggerClientEvent('redemrp:addMoney', self.source, m)
 			TriggerClientEvent('redemrp:activateMoney', self.source , self.money)
 		else
-			print('XRP_ERROR: There seems to be an issue while adding money, a different type then number was trying to be added.')
+			print('REDEMRP_ERROR: There seems to be an issue while adding money, a different type then number was trying to be added.')
 		end
 	end
 
@@ -214,7 +214,7 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
 			TriggerClientEvent('redemrp:removeMoney', self.source, m)
 			TriggerClientEvent('redemrp:activateMoney', self.source , self.money)
 		else
-			print('XRP_ERROR: There seems to be an issue while removing money, a different type then number was trying to be removed.')
+			print('REDEMRP_ERROR: There seems to be an issue while removing money, a different type then number was trying to be removed.')
 		end
 	end
 
@@ -227,7 +227,7 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
 			TriggerClientEvent('redemrp:addGold', self.source, m)
 			TriggerClientEvent('redemrp:activateGold', self.source , self.gold)
 		else
-			print('XRP_ERROR: There seems to be an issue while adding to gold, a different type then number was trying to be added.')
+			print('REDEMRP_ERROR: There seems to be an issue while adding to gold, a different type then number was trying to be added.')
 		end
 	end
 
@@ -240,7 +240,7 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
 			TriggerClientEvent('redemrp:removeGold', self.source, m)
 			TriggerClientEvent('redemrp:activateGold', self.source , self.gold)
 		else
-			print('XRP_ERROR: There seems to be an issue while removing from gold, a different type then number was trying to be removed.')
+			print('REDEMRP_ERROR: There seems to be an issue while removing from gold, a different type then number was trying to be removed.')
 		end
 	end
 	
