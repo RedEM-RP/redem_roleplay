@@ -8,7 +8,6 @@ client_scripts {
 	'client/cl_functions.lua',
 	'client/cl_main.lua',
 	'client/cl_hud.lua',
-	'client/cl_gold.lua',
 	'client/cl_callback.lua',
 	'html/ui.html',
 	'html/style.css',
@@ -23,6 +22,7 @@ server_scripts {
 	'server/sv_groups.lua',
 	'server/sv_callback.lua',
 	'server/levels.lua',
+	'server/sv_economy.lua',
 	'@mysql-async/lib/MySQL.lua',
 }
 
