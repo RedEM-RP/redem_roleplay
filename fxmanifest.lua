@@ -27,15 +27,14 @@ server_scripts {
 }
 
 files{
-'html/ui.html',
-'html/style.css',
-'html/crock.ttf',
+	'html/ui.html',
+	'html/style.css',
+	'html/crock.ttf',
 }
 
 ui_page 'html/ui.html'
 
 server_exports {
 	'getPlayerFromId',
-	'canGroupTarget',
 	'playerLoaded',
 }
