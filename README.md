@@ -50,6 +50,7 @@ ensure redem_roleplay
 
 ## 4. Documentation and Usage
 Currently there is no official documentation yet, u can check things on discord [Join RedEM Discord](https://discord.gg/FKH4uwb)
+
 It will be avaiable later on [This page](https://redemrp.org/)
 
 ## 5. Credits
