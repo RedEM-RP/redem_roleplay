@@ -92,12 +92,9 @@ AddEventHandler("redemrp:SetSomeGold", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 	if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
-	--print(pg.getGroup())
-	print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
-	
-	else
-	
-	local _source = tonumber(id)
+		print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")	
+	else	
+		local _source = tonumber(id)
 		TriggerEvent('redemrp:getPlayerFromId', _source, function(user)
 		--print(user.getIdentifier())
 			if user == nil then
@@ -106,25 +103,19 @@ AddEventHandler("redemrp:SetSomeGold", function(source, id, count, cb)
 			else
 				user.setGold(tonumber(count))
 				print("Done set gold to user: "..user.getName())
-			end
-		
-		end)
-		
-	end
-	
+				end
+			end)
+		end
 	end)
-	end)
+end)
 
 AddEventHandler("redemrp:SetSomeJob", function(id, count, grade, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 	if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
-	--print(pg.getGroup())
-	print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
-	
+		print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
 	else
-	
-	local _source = tonumber(id)
+		local _source = tonumber(id)
 		TriggerEvent('redemrp:getPlayerFromId', _source, function(user)
 		--print(user.getIdentifier())
 			if user == nil then
@@ -134,23 +125,19 @@ AddEventHandler("redemrp:SetSomeJob", function(id, count, grade, cb)
 				user.setJob(count)
 				user.setJobgrade(tonumber(grade))
 				print("Done set job to user: "..user.getName())
-			end
-		end)
-		
-	end
-	
+				end
+			end)
+		end
 	end)
-	end)
+end)
 	
 AddEventHandler("redemrp:SetSomeMoney", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 	if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
-	print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
-	
+		print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
 	else
-	
-	local _source = tonumber(id)
+		local _source = tonumber(id)
 		TriggerEvent('redemrp:getPlayerFromId', _source, function(user)
 		--print(user.getIdentifier())
 			if user == nil then
@@ -159,25 +146,19 @@ AddEventHandler("redemrp:SetSomeMoney", function(source, id, count, cb)
 			else
 				user.setMoney(tonumber(count))
 				print("Done set money to user: "..user.getName())
-			end
-		
-		end)
-		
-	end
-	
+				end
+			end)
+		end
 	end)
-	end)
+end)
 	
 AddEventHandler("redemrp:AddSomeGold", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 	if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
-	
-	print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
-	
+		print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
 	else
-	
-	local _source = tonumber(id)
+		local _source = tonumber(id)
 		TriggerEvent('redemrp:getPlayerFromId', _source, function(user)
 		--print(user.getIdentifier())
 			if user == nil then
@@ -186,25 +167,19 @@ AddEventHandler("redemrp:AddSomeGold", function(source, id, count, cb)
 			else
 				user.addGold(tonumber(count))
 				print("Done add gold to user: "..user.getName())
-			end
-		
-		end)
-		
-	end
-	
+				end
+			end)
+		end
 	end)
-	end)
+end)
 	
 AddEventHandler("redemrp:AddSomeMoney", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
-	if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
-	
-	print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
-	
+	if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then	
+		print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
 	else
-	
-	local _source = tonumber(id)
+		local _source = tonumber(id)
 		TriggerEvent('redemrp:getPlayerFromId', _source, function(user)
 			--print(user.getIdentifier())
 			if user == nil then
@@ -213,24 +188,19 @@ AddEventHandler("redemrp:AddSomeMoney", function(source, id, count, cb)
 			else
 				user.addMoney(tonumber(count))
 				print("Done add money to user: "..user.getName())
-			end
-		end)
-		
-	end
-	
+				end
+			end)
+		end
 	end)
-	end)
+end)
 	
 AddEventHandler("redemrp:RemoveSomeGold", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 	if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
-	
-	print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
-	
+		print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
 	else
-	
-	local _source = tonumber(id)
+		local _source = tonumber(id)
 		TriggerEvent('redemrp:getPlayerFromId', _source, function(user)
 		--print(user.getIdentifier())
 			if user == nil then
@@ -239,24 +209,19 @@ AddEventHandler("redemrp:RemoveSomeGold", function(source, id, count, cb)
 			else
 				user.removeGold(tonumber(count))
 				print("Done remove gold to user: "..user.getName())
-			end
-		end)
-		
-	end
-	
+				end
+			end)
+		end
 	end)
-	end)
+end)
 	
 AddEventHandler("redemrp:RemoveSomeMoney", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 	if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
-	
-	print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
-	
+		print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
 	else
-	
-	local _source = tonumber(id)
+		local _source = tonumber(id)
 		TriggerEvent('redemrp:getPlayerFromId', _source, function(user)
 		--print(user.getIdentifier())
 			if user == nil then
@@ -265,24 +230,19 @@ AddEventHandler("redemrp:RemoveSomeMoney", function(source, id, count, cb)
 			else
 				user.removeMoney(tonumber(count))
 				print("Done remove money to user: "..user.getName())
-			end
-		end)
-		
-	end
-	
+				end
+			end)
+		end
 	end)
-	end)
+end)
 	
 AddEventHandler("redemrp:AddSomeXP", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 	if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
-	
-	print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
-	
+		print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
 	else
-	
-	local _source = tonumber(id)
+		local _source = tonumber(id)
 		TriggerEvent('redemrp:getPlayerFromId', _source, function(user)
 		--print(user.getIdentifier())
 			if user == nil then
@@ -291,24 +251,19 @@ AddEventHandler("redemrp:AddSomeXP", function(source, id, count, cb)
 			else
 				user.addXP(tonumber(count))
 				print("Done add XP to user: "..user.getName())
-			end
-		end)
-		
-	end
-	
+				end
+			end)
+		end
 	end)
-	end)
+end)
 	
 AddEventHandler("redemrp:SetSomeLevel", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 	if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
-	
-	print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
-	
+		print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
 	else
-	
-	local _source = tonumber(id)
+		local _source = tonumber(id)
 		TriggerEvent('redemrp:getPlayerFromId', _source, function(user)
 		--print(user.getIdentifier())
 			if user == nil then
@@ -317,24 +272,19 @@ AddEventHandler("redemrp:SetSomeLevel", function(source, id, count, cb)
 			else
 				user.setLevel(tonumber(count))
 				print("Done set leveling to user: "..user.getName())
-			end
-		end)
-		
-	end
-	
+				end
+			end)
+		end
 	end)
-	end)
+end)
 	
 AddEventHandler("redemrp:SetSomeXP", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 	if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
-	
-	print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
-	
+		print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN ADMIN COMMAND WITHOUT PERMISSION")
 	else
-	
-	local _source = tonumber(id)
+		local _source = tonumber(id)
 		TriggerEvent('redemrp:getPlayerFromId', _source, function(user)
 		--print(user.getIdentifier())
 			if user == nil then
@@ -343,23 +293,19 @@ AddEventHandler("redemrp:SetSomeXP", function(source, id, count, cb)
 			else
 				user.setXP(tonumber(count))
 				print("Done set XP to user: "..user.getName())
-			end
-		end)
-		
-	end
-	
+				end
+			end)
+		end
 	end)
-	end)	
+end)	
 	
 AddEventHandler("redemrp:SetSomeGroup", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 	if _perm ~= 0 and pg.getGroup() ~= 'superadmin' then
-	print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN SUPER ADMIN COMMAND WITHOUT PERMISSION")
-	
+		print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN SUPER ADMIN COMMAND WITHOUT PERMISSION")
 	else
-	
-	local _source = tonumber(id)
+		local _source = tonumber(id)
 		TriggerEvent('redem:getPlayerFromId', _source, function(user)
 		--print(user.getIdentifier())
 			if user == nil then
@@ -368,10 +314,8 @@ AddEventHandler("redemrp:SetSomeGroup", function(source, id, count, cb)
 			else
 				user.setGroup(count)
 				print("Done set group to user: "..user.getName() .." Group: "..user.getGroup())
-			end
-		end)
-		
-	end
-	
+				end
+			end)
+		end
 	end)
-	end)
+end)
