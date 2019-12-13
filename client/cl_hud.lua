@@ -37,7 +37,7 @@ end)
 	
 RegisterNetEvent('redemrp:showID')
 AddEventHandler('redemrp:showID', function(_id)
-if Config.ShowID then
+if Config.ShowID == 1 then
 	SendNUIMessage({
 		showid = true,
 		id = _id
@@ -71,7 +71,7 @@ end)
 
 RegisterNetEvent("redemrp:xpLoaded")
 AddEventHandler("redemrp:xpLoaded", function(_xp)
-if Config.ShowXPandLevel then
+if Config.ShowXPandLevel == 1 then
 		SendNUIMessage({
 		setxp = true,
 		xp = _xp
@@ -81,7 +81,7 @@ end)
 
 RegisterNetEvent("redemrp:levelLoaded")
 AddEventHandler("redemrp:levelLoaded", function(_level)
-	if Config.ShowXPandLevel then
+	if Config.ShowXPandLevel == 1 then
 		SendNUIMessage({
 		setlevel = true,
 		level = _level
@@ -91,7 +91,7 @@ end)
 
 RegisterNetEvent('redemrp:activateXP')
 AddEventHandler('redemrp:activateXP', function(_xp)
-	if Config.ShowXPandLevel then
+	if Config.ShowXPandLevel == 1 then
 	SendNUIMessage({
 		setxp = true,
 		xp = _xp
@@ -101,7 +101,7 @@ end)
 
 RegisterNetEvent('redemrp:activateLevel')
 AddEventHandler('redemrp:activateLevel', function(_level)
-	if Config.ShowXPandLevel then
+	if Config.ShowXPandLevel == 1 then
 	SendNUIMessage({
 		setlevel = true,
 		level = _level
@@ -129,7 +129,7 @@ end)
 
 RegisterNetEvent("redemrp:addXP")
 AddEventHandler("redemrp:addXP", function(_xp, native, current)
-	if Config.ShowXPandLevel then
+	if Config.ShowXPandLevel == 1 then
 	SendNUIMessage({
 			addxp = true,
 			xp = _xp
@@ -139,7 +139,7 @@ end)
 
 RegisterNetEvent("redemrp:removeXP")
 AddEventHandler("redemrp:removeXP", function(_xp, native, current)
-	if Config.ShowXPandLevel then
+	if Config.ShowXPandLevel == 1 then
 	SendNUIMessage({
 			removexp = true,
 			xp = _xp
@@ -149,7 +149,7 @@ end)
 
 RegisterNetEvent("redemrp:removeLevel")
 AddEventHandler("redemrp:removeLevel", function(_level, native, current)
-	if Config.ShowXPandLevel then
+	if Config.ShowXPandLevel == 1 then
 	SendNUIMessage({
 			removelevel = true,
 			level = _level
@@ -159,7 +159,7 @@ end)
 
 RegisterNetEvent("redemrp:addLevel")
 AddEventHandler("redemrp:addLevel", function(_level, native, current)
-	if Config.ShowXPandLevel then
+	if Config.ShowXPandLevel == 1 then
 	SendNUIMessage({
 			addlevel = true,
 			level = _level

@@ -1,4 +1,4 @@
-if Config.AdminCommands then
+if Config.AdminCommands == 1 then
 RegisterCommand("setgold", function(source, args, rawCommand)
  if args[1] == nil or args[2] == nil then
  print("argument #1 or #2 is bad")
