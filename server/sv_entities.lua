@@ -23,15 +23,17 @@ function entity(type, location, name, update)
         return self[key]
     end
 
-    Citizen.CreateThread(function()
-        if (update ~= nil) then
-            while true do
-                Citizen.Wait(1)
-                if self.type == "no-persist" then break end
-                update(self)
-            end
-        end
-    end)
-
     Entities[self.uid] = self.functions
 end
+
+Citizen.CreateThread(function()
+    for k,v in pairs(Entities)do
+        if v.update ~= nil then
+            if v.type == "no-persist" then 
+                Entities[v.uid] = nil 
+            else
+                update(v)
+            end
+        end
+    end
+end)
