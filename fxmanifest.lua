@@ -16,13 +16,13 @@ client_scripts {
 }
 
 server_scripts {
+	'config.lua',
 	'server/sv_main.lua',
 	'server/sv_player.lua',
 	'server/sv_gold.lua',
 	'server/sv_groups.lua',
 	'server/sv_callback.lua',
 	'server/levels.lua',
-	'@async/async.lua',
 	'@mysql-async/lib/MySQL.lua',
 }
 
