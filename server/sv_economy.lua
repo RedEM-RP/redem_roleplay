@@ -410,8 +410,7 @@ AddEventHandler("redemrp:SetSomeXP", function(source, id, count, cb)
 AddEventHandler("redemrp:SetSomeGroup", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
-	if pg.getGroup() ~= 'superadmin' then
-	
+	if _perm ~= 0 and pg.getGroup() ~= 'superadmin' then
 	print(pg.getName() .. " - With ID: " .. _perm .. " - TRIED TO RUN SUPER ADMIN COMMAND WITHOUT PERMISSION")
 	
 	else
