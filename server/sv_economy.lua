@@ -416,7 +416,7 @@ AddEventHandler("redemrp:SetSomeGroup", function(source, id, count, cb)
 	else
 	
 	local _source = tonumber(id)
-		TriggerEvent('redemrp:getPlayerFromId', _source, function(user)
+		TriggerEvent('redem:getPlayerFromId', _source, function(user)
 		--print(user.getIdentifier())
 			if user == nil then
 				--TODO Temporary command Feeback	
