@@ -14,11 +14,11 @@ function entity(type, location, name, update)
         self.location = {x = x, y = y, z = z, heading = heading}
     end
 
-    self.get = function(key)
+    self.functions.get = function(key)
         return self[key]
     end
 
-    self.set = function(key, value)
+    self.functions.set = function(key, value)
         self[key] = value
         return self[key]
     end
