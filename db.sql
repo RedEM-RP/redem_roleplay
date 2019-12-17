@@ -28,10 +28,13 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `job` varchar(50) COLLATE utf8mb4_bin DEFAULT 'unemployed',
   `firstname` varchar(50) COLLATE utf8mb4_bin DEFAULT 'first',
   `lastname` varchar(50) COLLATE utf8mb4_bin DEFAULT 'last',
-  `jobgrade` int(11) DEFAULT 0
+  `jobgrade` int(11) DEFAULT 0,
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- Data exporting was unselected.
+ALTER TABLE `characters`
+  ADD PRIMARY KEY (`id`);
 
 -- Dumping structure for table redemrp.users
 CREATE TABLE IF NOT EXISTS `users` (
