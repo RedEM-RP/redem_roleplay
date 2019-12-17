@@ -45,8 +45,8 @@ if Config.ShowID == 1 then
 	else end
 end)	
 	
-RegisterNetEvent('redem:activateMoney')
-AddEventHandler('redem:activateMoney', function(_money)
+RegisterNetEvent('redemrp:activateMoney')
+AddEventHandler('redemrp:activateMoney', function(_money)
 	SendNUIMessage({
 		setmoney = true,
 		money = _money
@@ -119,8 +119,8 @@ end)
 
 
 -- Updating
-RegisterNetEvent("redem:addMoney")
-AddEventHandler("redem:addMoney", function(_money, native, current)
+RegisterNetEvent("redemrp:addMoney")
+AddEventHandler("redemrp:addMoney", function(_money, native, current)
 	SendNUIMessage({
 			addcash = true,
 			money = _money
@@ -175,8 +175,8 @@ AddEventHandler("redemrp:addGold", function(_gold, native, current)
 		})
 end)
 
-RegisterNetEvent("redem:removeMoney")
-AddEventHandler("redem:removeMoney", function(_money, native, current)
+RegisterNetEvent("redemrp:removeMoney")
+AddEventHandler("redemrp:removeMoney", function(_money, native, current)
 	SendNUIMessage({
 			removecash = true,
 			money = _money
