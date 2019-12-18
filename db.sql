@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `firstname` varchar(50) COLLATE utf8mb4_bin DEFAULT 'first',
   `lastname` varchar(50) COLLATE utf8mb4_bin DEFAULT 'last',
   `jobgrade` int(11) DEFAULT 0,
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
