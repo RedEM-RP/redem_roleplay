@@ -109,7 +109,7 @@ AddEventHandler("redemrp:SetSomeGold", function(source, id, count, cb)
 	end)
 end)
 
-AddEventHandler("redemrp:SetSomeJob", function(id, count, grade, cb)
+AddEventHandler("redemrp:SetSomeJob", function(source, id, count, grade, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 	if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
