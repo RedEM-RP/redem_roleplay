@@ -34,7 +34,7 @@ Join our discord to get the newest updates and support! - https://discord.gg/FKH
 
 - Put the redem_roleplay folder in server-data/resources/[redemrp]/ - if you don't have [redemrp], just create a new one
 
-- Import db.sql into your mysql database
+- First start of server will create everything for you, don't make anything! Just make sure you have an active MySQL instance running
 
 - Open your server.cfg and put below commands into it
 
