@@ -41,8 +41,8 @@ updateDatabase = function(new)
 end
 
 doDatabaseCheck = function()
-    MySQL.Async.fetchAll("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'redemrp'", {}, function(database)
-        if(#database == 0)then
+    MySQL.Async.fetchAll("select schema_name from information_schema.schemata where schema_name = 'redemrp'", {}, function(database)
+        if(database == nil or #database == 0)then
             updateDatabase(true)
         else
             MySQL.Async.fetchAll("SHOW TABLES LIKE 'version';", {}, function(versions)
@@ -62,4 +62,6 @@ doDatabaseCheck = function()
     end)
 end
 
-doDatabaseCheck()
+MySQL.ready(function()
+    doDatabaseCheck()
+end)
