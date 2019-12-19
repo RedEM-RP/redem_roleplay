@@ -1,162 +1,177 @@
 <html>
-<head>
-<title> xRP - UI </title>
-<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:light,regular,medium,thin,italic,mediumitalic,bold"
-	 title="roboto">
+	<head>
+		<title> xRP - UI </title>
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:light,regular,medium,thin,italic,mediumitalic,bold" title="roboto">
+		<link href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" rel="stylesheet">
+		<script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			const cType = 2;
 
-	 <link href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" rel="stylesheet">
-	<script src="nui://game/ui/jquery.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		const cType = 1;
-		
-		
-		function addCommas(nStr) {
-			nStr += '';
-			let x = nStr.split('.');
-			let x1 = x[0];
-			let x2 = x.length > 1 ? '.' + x[1] : '';
-			let rgx = /(\d+)(\d{3})/;
-			while (rgx.test(x1)) {
-				if (!cType || cType === 1)
-					x1 = x1.replace(rgx, '$1' + '<span style="margin-left: 3px; margin-right: 3px;"/>' + '$2');
-				if (cType === 2)
-					x1 = x1.replace(rgx, '$1' + ',' + '$2');
-				else
-					x1 = x1.replace(rgx, '$1' + ',' + '$2');
+			function addCommas(nStr) {
+				nStr += '';
+				let x = nStr.split('.');
+				let x1 = x[0];
+				let x2 = x.length > 1 ? '.' + x[1] : '';
+				let rgx = /(\d+)(\d{3})/;
+				while (rgx.test(x1)) {
+					if (!cType || cType === 1)
+						x1 = x1.replace(rgx, '$1' + '<span style="margin-left: 3px; margin-right: 3px;"/>' + '$2');
+					if (cType === 2)
+						x1 = x1.replace(rgx, '$1' + ',' + '$2');
+					else
+						x1 = x1.replace(rgx, '$1' + ',' + '$2');
+				}
+				return x1 + x2;
 			}
-			return x1 + x2;
-		}
-		
-		
-		
-		
-		window.onload = function (e) {
-			// NUI Callback
-			window.addEventListener('message', function (event) {
-				let item = event.data;
-				if (item.setmoney == true) {
-					document.getElementById("cash").innerHTML = "<div><font style='color: rgb(0, 125, 0); font-weight: 900; margin-right: 6px;'><i class='fas fa-dollar-sign'></i>" + "</font>" + addCommas(item.money);
-				} else if (item.addcash == true) {
-					$(".tiny").remove();
-					var element = $("<div class='tiny'>+ <font style='color: rgb(0, 125, 0); font-weight: 900; margin-right: 6px;'><i class='fas fa-dollar-sign'></i>"+ "</font>" + addCommas(item.money) + "</div>");
-					$("#money").append(element);
-					setTimeout(function () {
-						$(element).fadeOut(600, function () { $(this).remove(); });
-					}, 1000);
-				} else if (item.removecash == true) {
-					$(".tiny").remove();
-					var element = $("<div class='tiny'>- <font style='color: rgb(250, 0, 0); font-weight: 900; margin-right: 6px;'><i class='fas fa-dollar-sign'></i>" + "</font>" + addCommas(item.money) + "</div>");
-					$("#money").append(element);
-					setTimeout(function () {
-						$(element).fadeOut(600, function () { $(this).remove(); });
-					}, 1000)
-				}
-				if (item.setgold == true) {
-					document.getElementById("gold").innerHTML = "<div><font style='color: rgb(255,215,0); font-weight: 900; margin-right: 6px;'><i class='fas fa-coins'></i></i>" + "</font>" + addCommas(item.gold);
-				} else if (item.addgold == true) {
-					$(".tiny").remove();
-					var element = $("<div class='tiny'>+ <font style='color: rgb(255,215,0); font-weight: 900; margin-right: 6px;'><i class='fas fa-coins'></i>"+ "</font>" + addCommas(item.gold) + "</div>");
-					$("#money").append(element);
-					setTimeout(function () {
-						$(element).fadeOut(600, function () { $(this).remove(); });
-					}, 1000);
-				} else if (item.removegold == true) {
-					$(".tiny").remove();
-					var element = $("<div class='tiny'>- <font style='color: rgb(255,215,0); font-weight: 900; margin-right: 6px;'><i class='fas fa-coins'></i>" + "</font>" + addCommas(item.gold) + "</div>");
-					$("#money").append(element);
-					setTimeout(function () {
-						$(element).fadeOut(600, function () { $(this).remove(); });
-					}, 1000)
-				}
-					
-				if (item.showid == true) {
-					document.getElementById("idk").innerHTML = "<div><font style='color: rgb(255, 128, 0); font-weight: 900; margin-right: 6px;'><i class='fas fa-user'></i></i>" + "</font>" + addCommas(item.id);
-				} else if (item.hideid == true) {
-					$(".tiny").remove();
-					var element = $("");
-					$("#money").append(element);
-					setTimeout(function () {
-						$(element).fadeOut(600, function () { $(this).remove(); });
-					}, 1000);
-				} else if (item.hideid2 == true) {
-					$(".tiny").remove();
-					var element = $("");
-					$("#money").append(element);
-					setTimeout(function () {
-						$(element).fadeOut(600, function () { $(this).remove(); });
-					}, 1000)
-				}
-				
-				if (item.setxp == true) {
-					//document.getElementById("xp").innerHTML = "<div><font style='color: rgb(255,215,0); font-weight: 900; margin-right: 6px;'><i class='fas fa-star-half-alt'></i></i>" + "</font>" + addCommas(item.xp);
-				} else if (item.addxp == true) {
-					$(".tiny3").remove();
-					var element = $("<div class='tiny3'>XP + " + addCommas(item.xp) + "</div>");
-					$("#money2").append(element);
-					setTimeout(function () {
-						$(element).fadeOut(600, function () { $(this).remove(); });
-					}, 1000);
-				} else if (item.removexp == true) {
-					$(".tiny3").remove();
-					var element = $("<div class='tiny3'>XP " + addCommas(item.xp) + "</div>");
-					$("#money2").append(element);
-					setTimeout(function () {
-						$(element).fadeOut(600, function () { $(this).remove(); });
-					}, 1000)
-				}
-				
-				if (item.setlevel == true) {
-					document.getElementById("level").innerHTML = "<div><font style='color: rgb(80, 29, 191); font-weight: 900; margin-right: 6px;'><i class='fas fa-star-half-alt'></i></i>" + "</font>" + addCommas(item.level);
-				} else if (item.addlevel == true) {
-					$(".tiny2").remove();
-					var element = $("<div class='tiny2'>Promoted to level "+ "<font style='color: rgb(255, 205, 41);'>" + addCommas(item.level) + "</font></div>");
-					$("#money2").append(element);
-					setTimeout(function () {
-						$(element).fadeOut(600, function () { $(this).remove(); });
-					}, 1000);
-				} else if (item.removelevel == true) {
-					$(".tiny2").remove();
-					var element = $("<div class='tiny2'>Demoted to level " + "<font style='color: rgb(255, 205, 41);'>" + addCommas(item.level) + "</font></div>");
-					$("#money2").append(element);
-					setTimeout(function () {
-						$(element).fadeOut(600, function () { $(this).remove(); });
-					}, 1000)
-				}
-				
-				if (item.showhud == true) {
-					document.getElementById("body").style.display = "block";
-				} else if (item.hidehud == true) {
-					document.getElementById("body").style.display = "none";
-				} else if (item.hidehud2 == true) {
-					$(".tiny").remove();
-					$(".tiny2").remove();
-					$(".tiny3").remove();
-					var element = $("");
-					$("#money").append(element);
-					$("#money2").append(element);
-					setTimeout(function () {
-						$(element).fadeOut(600, function () { $(this).remove(); });
-					}, 1000)
-				}
-			});
-		};
-		
-		
-	</script>
-</head>
-<body id="body">
-		<div id="money2"></div>
-	<div id="starter" style="font-family: 'roboto'; color: white; position: absolute; left: 20%; top: 5%; width: 60%; background: rgba(40, 40, 40, 0.8)"></div>
-	<div id="container">
 
-		<div id="money">
-			<div id="cash"></div>
-			<div id="gold"></div>
-			<div id="idk"></div>
-			<div id="xp"></div>
-			<div id="level"></div>
+			window.onload = function (e) {
+				// NUI Callback
+				window.addEventListener('message', function (event) {
+					let item = event.data;
+					if (item.setmoney == true) {
+						console.log('setmoney:' + item.money);
+						$("#cash").html("<i class='fas fa-dollar-sign'></i>" + addCommas(item.money));
+					} else if (item.addcash == true) {
+						$(".tiny").remove();
+						var element = $("<div class='tiny'>+ <i class='fas fa-dollar-sign'></i>" + addCommas(item.money) + "</div>");
+						$("#money").append(element);
+						setTimeout(function () {
+							$(element).fadeOut(600, function () {
+								$(this).remove();
+							});
+						}, 1000);
+					} else if (item.removecash == true) {
+						$(".tiny").remove();
+						var element = $("<div class='tiny'>- <i class='fas fa-dollar-sign'></i>" + addCommas(item.money) + "</div>");
+						$("#money").append(element);
+						setTimeout(function () {
+							$(element).fadeOut(600, function () {
+								$(this).remove();
+							});
+						}, 1000)
+					}
+					if (item.setgold == true) {
+						console.log('setgold:' + item.gold);
+						$("#gold").html("<div><i class='fas fa-coins'></i>" + addCommas(item.gold));
+					} else if (item.addgold == true) {
+						$(".tiny").remove();
+						var element = $("<div class='tiny'>+ <i class='fas fa-coins'></i>" + addCommas(item.gold) + "</div>");
+						$("#money").append(element);
+						setTimeout(function () {
+							$(element).fadeOut(600, function () {
+								$(this).remove();
+							});
+						}, 1000);
+					} else if (item.removegold == true) {
+						$(".tiny").remove();
+						var element = $("<div class='tiny'>- <i class='fas fa-coins'></i>" + addCommas(item.gold) + "</div>");
+						$("#money").append(element);
+						setTimeout(function () {
+							$(element).fadeOut(600, function () {
+								$(this).remove();
+							});
+						}, 1000)
+					}
+
+					if (item.showid == true) {
+						$("#idk").html("<i class='fas fa-server'></i>" + addCommas(item.id));
+					} else if (item.hideid == true) {
+						$(".tiny").remove();
+						var element = $("");
+						$("#money").append(element);
+						setTimeout(function () {
+							$(element).fadeOut(600, function () {
+								$(this).remove();
+							});
+						}, 1000);
+					} else if (item.hideid2 == true) {
+						$(".tiny").remove();
+						var element = $("");
+						$("#money").append(element);
+						setTimeout(function () {
+							$(element).fadeOut(600, function () {
+								$(this).remove();
+							});
+						}, 1000)
+					}
+
+					if (item.setxp == true) {
+						$("#xp").html("<i class='fas fa-star-half-alt'></i>" + addCommas(item.xp));
+					} else if (item.addxp == true) {
+						$(".tiny3").remove();
+						var element = $("<div class='tiny3'>XP + " + addCommas(item.xp) + "</div>");
+						$("#money2").append(element);
+						setTimeout(function () {
+							$(element).fadeOut(600, function () {
+								$(this).remove();
+							});
+						}, 1000);
+					} else if (item.removexp == true) {
+						$(".tiny3").remove();
+						var element = $("<div class='tiny3'>XP " + addCommas(item.xp) + "</div>");
+						$("#money2").append(element);
+						setTimeout(function () {
+							$(element).fadeOut(600, function () {
+								$(this).remove();
+							});
+						}, 1000)
+					}
+
+					if (item.setlevel == true) {
+						$("#level").html("<i class='fas fa-star-half-alt'></i>" + addCommas(item.level));
+					} else if (item.addlevel == true) {
+						$(".tiny2").remove();
+						var element = $("<div class='tiny2'>Promoted to level " + addCommas(item.level) + "</div>");
+						$("#money2").append(element);
+						setTimeout(function () {
+							$(element).fadeOut(600, function () {
+								$(this).remove();
+							});
+						}, 1000);
+					} else if (item.removelevel == true) {
+						$(".tiny2").remove();
+						var element = $("<div class='tiny2'>Demoted to level " + addCommas(item.level) + "</div>");
+						$("#money2").append(element);
+						setTimeout(function () {
+							$(element).fadeOut(600, function () {
+								$(this).remove();
+							});
+						}, 1000)
+					}
+
+					if (item.showhud == true) {
+						document.getElementById("body").style.display = "block";
+					} else if (item.hidehud == true) {
+						document.getElementById("body").style.display = "none";
+					} else if (item.hidehud2 == true) {
+						$(".tiny").remove();
+						$(".tiny2").remove();
+						$(".tiny3").remove();
+						var element = $("");
+						$("#money").append(element);
+						$("#money2").append(element);
+						setTimeout(function () {
+							$(element).fadeOut(600, function () {
+								$(this).remove();
+							});
+						}, 1000)
+					}
+				});
+			};
+		</script>
+	</head>
+	<body id="body">
+		<div id="money2"></div>
+		<div id="starter"></div>
+		<div id="container">
+			<div id="money">
+				<div id="level"></div>
+				<div id="xp"></div>
+				<div id="gold"></div>
+				<div id="cash"></div>
+				<div id="idk"></div>
+			</div>
 		</div>
-	</div>
-</body>
+	</body>
 </html>

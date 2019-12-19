@@ -1,50 +1,85 @@
-		@font-face {
-			font-family: crock;
-			src: url(crock.ttf);
-		}
-		.tiny {
-			font-size: 25px;
-			position: absolute;
-			right: 10;
-		}
-		.tiny2 {
-			font-size: 32px;
-			width: 100%;
-			right: 50;
-		}
-		.tiny3 {
-			font-size: 24px;
-			width: 100%;
-			right: 50;
-		}
-		#money {
-			font-family: crock;
-			font-size: 35px;
-			color: white;
-			padding: 4px;
-			text-shadow:
-				-0.5px -0.5px 0 #000,
-				0.5px -0.5px 0 #000,
-				-0.5px 0.5px 0 #000,
-				0.5px 0.5px 0 #000;
-		}
-		#container {
-			position: absolute;
-			top: 120;
-			right: 30;
-		}
-		
-		#money2 {
-			margin: 0 auto;
-			width: 100%;
-			text-align: center;
-			font-family: crock;
-			font-size: 35px;
-			color: white;
-			padding: 4px;
-			text-shadow:
-				-0.5px -0.5px 0 #000,
-				0.5px -0.5px 0 #000,
-				-0.5px 0.5px 0 #000,
-				0.5px 0.5px 0 #000;
-		}
+@font-face {
+	font-family: crock;
+	src: url(crock.ttf);
+}
+
+#container {
+	position: absolute;
+	right: 30px;
+	bottom: 30px;
+	width: 25vw;
+}
+
+#money {
+	font-family: crock;
+	font-size: 25px;
+	color: white;
+	padding: 4px;
+	width: 100%;
+	text-shadow:
+		-0.5px -0.5px 0 #000,
+		0.5px -0.5px 0 #000,
+		-0.5px 0.5px 0 #000,
+		0.5px 0.5px 0 #000;
+}
+
+#started {
+	font-family: 'roboto';
+	color: white;
+	position: absolute;
+	left: 20%;
+	top: 5%;
+	width: 60%;
+	background: rgba(40, 40, 40, 0.8);
+}
+
+#money > div {
+	float: right;
+	margin-right: 10px;
+}
+
+#idk {
+	margin-right: 20px;
+}
+
+#money2 {
+	margin: 0 auto;
+	width: 100%;
+	text-align: center;
+	font-family: crock;
+	font-size: 25px;
+	color: white;
+	padding: 4px;
+	text-shadow:
+		-0.5px -0.5px 0 #000,
+		0.5px -0.5px 0 #000,
+		-0.5px 0.5px 0 #000,
+		0.5px 0.5px 0 #000;
+}
+
+.fas {
+	color: #5e1918;
+	font-weight: 900;
+	margin-right: 6px;
+}
+
+.tiny {
+	font-size: 25px;
+	position: absolute;
+	right: 30px;
+	bottom: 80px;
+}
+
+.tiny2 {
+	font-size: 32px;
+	width: 100%;
+	right: 30px;
+	bottom: 80px;
+}
+
+.tiny3 {
+	font-size: 24px;
+	width: 100%;
+	right: 30px;
+	bottom: 80px;
+}
