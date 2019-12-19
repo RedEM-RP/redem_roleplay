@@ -26,6 +26,7 @@ server_scripts {
 	'server/levels.lua',
 	'server/sv_economy.lua',
 	'@mysql-async/lib/MySQL.lua',
+	'server/sv_db.lua',
 }
 
 files{
