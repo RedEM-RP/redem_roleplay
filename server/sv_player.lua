@@ -268,7 +268,7 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
 	end
 
 	rTable.getJobgrade = function()
-		return self.job
+		return self.jobgrade
 	end
 
 
