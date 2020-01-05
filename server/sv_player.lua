@@ -102,9 +102,9 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
 
 	rTable.setJob = function(m)
 		if type(m) == "string" then
-			TriggerEvent("redemrp:setPlayerData", self.source, "job", m, function(response, success)
+			--TriggerEvent("redemrp:setPlayerData", self.source, "job", m, function(response, success)
 				self.job = m
-			end)
+			--end)
 		else
 			print('REDEMRP_ERROR: There seems to be an issue while setting job, something else then a text was entered.')
 		end
@@ -112,9 +112,9 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
 
 	rTable.setJobgrade = function(m)
 		if type(m) == "number" then
-			TriggerEvent("redemrp:setPlayerData", self.source, "jobgrade", m, function(response, success)
+			--TriggerEvent("redemrp:setPlayerData", self.source, "jobgrade", m, function(response, success)
 				self.jobgrade = m
-			end)
+			--end)
 		else
 			print('REDEMRP_ERROR: There seems to be an issue while setting jobgrade, something else then a text was entered.')
 		end

@@ -108,7 +108,7 @@ local function savePlayerMoney()
 		Citizen.CreateThread(function()
 			for k,v in pairs(Users)do
 				if Users[k] ~= nil then
-						TriggerEvent("redemrp_db:updateUser", v.getIdentifier(), tonumber(v.getSessionVar("charid")), {money = v.getMoney(), gold = v.getGold(), xp = tonumber(v.getXP()), level = tonumber(v.getLevel())}, function()
+						TriggerEvent("redemrp_db:updateUser", v.getIdentifier(), tonumber(v.getSessionVar("charid")), {money = v.getMoney(), gold = v.getGold(), xp = tonumber(v.getXP()), level = tonumber(v.getLevel()), job = v.getJob(), jobgrade = tonumber(v.getJobgrade())}, function()
 					end)
 				end
 			end
