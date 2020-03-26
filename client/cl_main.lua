@@ -70,3 +70,30 @@ end
 function CreateVarString(p0, p1, variadic)
     return Citizen.InvokeNative(0xFA925AC00EB830B9, p0, p1, variadic, Citizen.ResultAsLong())
 end
+
+Citizen.CreateThread(function()
+group = 1
+msg = "friendly"
+    while true do 
+    Wait(0)
+        if IsControlJustPressed(0,0x6319DB71) then
+            if group == 5 then
+                timeout = GetGameTimer()
+                repeat
+                Wait(0)
+                msg = "friendly"
+                group = 1
+                SetRelationshipBetweenGroups(group, `PLAYER`, `PLAYER`)
+                until GetGameTimer() - timeout > 1500
+            else
+                timeout = GetGameTimer()
+                repeat
+                Wait(0)
+                msg = "Enemy"
+                group = 5                 
+                SetRelationshipBetweenGroups(group, `PLAYER`, `PLAYER`)
+                until GetGameTimer() - timeout > 1500
+            end
+        end
+    end
+end)
