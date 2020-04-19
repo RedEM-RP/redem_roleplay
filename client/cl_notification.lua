@@ -1,13 +1,11 @@
 -- EXMAPLE USAGE:
 --
--- FOR JS:
+-- FOR LUA ONLY!:
 --
 -- exports.redem_roleplay.DisplayTip(0, "your text", tonumber(8000))
 -- exports.redem_roleplay.DisplayTopCenterNotification(0, "your text", tonumber(8000))
 -- exports.redem_roleplay.DisplayLeftNotification(0, "your text", "second text", "generic_textures", "tick", tonumber(8000))
---
--- FOR LUA:
---
+-- OR JUST
 -- TriggerClientEvent('redem_roleplay:NotifyLeft', "first text", "second text", "tick", 8000)
 -- TriggerClientEvent('redem_roleplay:Tip', "your text", 8000)
 -- TriggerClientEvent('redem_roleplay:NotifyTop', "your text", 8000)
