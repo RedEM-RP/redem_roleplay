@@ -71,29 +71,25 @@ function CreateVarString(p0, p1, variadic)
     return Citizen.InvokeNative(0xFA925AC00EB830B9, p0, p1, variadic, Citizen.ResultAsLong())
 end
 
+
 Citizen.CreateThread(function()
-group = 1
-msg = "friendly"
+local active = false
+local timer = 0
     while true do 
     Wait(0)
-        if IsControlJustPressed(0,0x6319DB71) then
-            if group == 5 then
-                timeout = GetGameTimer()
-                repeat
-                Wait(0)
-                msg = "friendly"
-                group = 1
-                SetRelationshipBetweenGroups(group, `PLAYER`, `PLAYER`)
-                until GetGameTimer() - timeout > 1500
-            else
-                timeout = GetGameTimer()
-                repeat
-                Wait(0)
-                msg = "Enemy"
-                group = 5                 
-                SetRelationshipBetweenGroups(group, `PLAYER`, `PLAYER`)
-                until GetGameTimer() - timeout > 1500
-            end
+        if IsControlJustPressed(0,0x4AF4D473) then -- DEL KEY
+		timer = 0
+		active = true
+		while  timer < 200 do 
+			Wait(0)
+			timer = timer + 1
+			SetRelationshipBetweenGroups(1, `PLAYER`, `PLAYER`)
+		end
+        	active = false
         end
+		
+	if active == false and not IsPedOnMount(PlayerPedId()) and not IsPedInAnyVehicle(PlayerPedId()) then
+		SetRelationshipBetweenGroups(5, `PLAYER`, `PLAYER`)
+	end	
     end
 end)
