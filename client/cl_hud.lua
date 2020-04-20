@@ -175,8 +175,9 @@ AddEventHandler("redemrp:addGold", function(_gold, native, current)
 		})
 end)
 
-RegisterNetEvent("redem:removeMoney")
-AddEventHandler("redem:removeMoney", function(_money, native, current)
+RegisterNetEvent("redemrp:removeMoney")
+AddEventHandler("redemrp:removeMoney", function(_money, native, current)
+	print("REMOVE CASH")
 	SendNUIMessage({
 			removecash = true,
 			money = _money
