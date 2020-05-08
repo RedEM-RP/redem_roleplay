@@ -130,9 +130,26 @@ AddEventHandler('redemrp_db:doesUserExist', function(identifier, cb)
     end)
 end)
 
+local DBData
+
+function CharacterExist (id)	
+	local test = false
+	    for k,v in pairs(DBData) do
+			if v.characterid == id then
+				test = true
+			end
+		end
+    return (test)
+end	
+
 AddEventHandler('redemrp_db:createUser', function(identifier, firstname, lastname, callback)
 	MySQL.Async.fetchAll('SELECT * FROM characters WHERE `identifier`=@identifier', {identifier = identifier}, function(users)
-		local charID = (#users + 1)
+		DBData = users
+		local charID = 1
+		while CharacterExist(charID) do 
+		   charID = charID + 1
+      		 end
+		print("Found charID "..charID)
 		MySQL.Async.execute('INSERT INTO characters (`identifier`, `firstname`, `lastname`, `characterid`) VALUES (@identifier, @firstname, @lastname, @characterid);',
 		{
 			identifier = identifier,
