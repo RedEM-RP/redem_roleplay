@@ -19,15 +19,20 @@ Citizen.CreateThread(function()
     end
 end)
 
-CreateThread(function()
-    while true do
-        Wait(0)
-	    if Config.pvp then
-            Citizen.InvokeNative(0xF808475FA571D823, true) --enable friendly fire
-            NetworkSetFriendlyFireOption(true)
-		    SetRelationshipBetweenGroups(5, `PLAYER`, `PLAYER`)
-        end
+function enablePvP()
+    if Config.pvp then
+        Citizen.InvokeNative(0xF808475FA571D823, true) --enable friendly fire
+        NetworkSetFriendlyFireOption(true)
+        SetRelationshipBetweenGroups(5, `PLAYER`, `PLAYER`)
     end
+end
+
+AddEventHandler("redemrp_respawn:respawn", function()
+    enablePvP()
+end)
+
+AddEventHandler("playerSpawned", function()
+    enablePvP()
 end)
 
 AddEventHandler("onClientResourceStart", function() -- Reveal whole map on spawn and enable pvp
