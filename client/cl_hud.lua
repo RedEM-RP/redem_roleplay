@@ -5,19 +5,19 @@ local hidehud = false
 
 Citizen.CreateThread(function()
     while true do
-    Citizen.Wait(0)
+    	Citizen.Wait(0)
     end
-    end)
+end)
 	
 RegisterCommand("hud", function(source, args, rawCommand) -- Its showing/hiding hud - just a dev command
-if (hidehud ~= false) then
-	hidehud = false
-	TriggerEvent("redemrp:showHUD")
-	DisplayHud(true)
+	if (hidehud ~= false) then
+		hidehud = false
+		TriggerEvent("redemrp:showHUD")
+		DisplayHud(true)
 	else
-	hidehud = true
-	DisplayHud(false)
-	TriggerEvent("redemrp:hideHUD")
+		hidehud = true
+		DisplayHud(false)
+		TriggerEvent("redemrp:hideHUD")
 	end
 end, false)	
 	
@@ -37,12 +37,12 @@ end)
 	
 RegisterNetEvent('redemrp:showID')
 AddEventHandler('redemrp:showID', function(_id)
-if Config.ShowID == 1 then
-	SendNUIMessage({
-		showid = true,
-		id = _id
-	})
-	else end
+	if Config.ShowID == 1 then
+		SendNUIMessage({
+			showid = true,
+			id = _id
+		})
+	end
 end)	
 	
 RegisterNetEvent('redem:activateMoney')
@@ -71,42 +71,42 @@ end)
 
 RegisterNetEvent("redemrp:xpLoaded")
 AddEventHandler("redemrp:xpLoaded", function(_xp)
-if Config.ShowXPandLevel == 1 then
+	if Config.ShowXPandLevel == 1 then
 		SendNUIMessage({
-		setxp = true,
-		xp = _xp
-	})
-else end
+			setxp = true,
+			xp = _xp
+		})
+	end
 end)
 
 RegisterNetEvent("redemrp:levelLoaded")
 AddEventHandler("redemrp:levelLoaded", function(_level)
 	if Config.ShowXPandLevel == 1 then
-		SendNUIMessage({
-		setlevel = true,
-		level = _level
-	})
-else end
+			SendNUIMessage({
+			setlevel = true,
+			level = _level
+		})
+	end
 end)
 
 RegisterNetEvent('redemrp:activateXP')
 AddEventHandler('redemrp:activateXP', function(_xp)
 	if Config.ShowXPandLevel == 1 then
-	SendNUIMessage({
-		setxp = true,
-		xp = _xp
-	})
-else end
+		SendNUIMessage({
+			setxp = true,
+			xp = _xp
+		})
+	end
 end)	
 
 RegisterNetEvent('redemrp:activateLevel')
 AddEventHandler('redemrp:activateLevel', function(_level)
 	if Config.ShowXPandLevel == 1 then
-	SendNUIMessage({
-		setlevel = true,
-		level = _level
-	})
-else end
+		SendNUIMessage({
+			setlevel = true,
+			level = _level
+		})
+	end
 end)
 
 RegisterNetEvent("redemrp:goldLoaded")
@@ -122,72 +122,71 @@ end)
 RegisterNetEvent("redem:addMoney")
 AddEventHandler("redem:addMoney", function(_money, native, current)
 	SendNUIMessage({
-			addcash = true,
-			money = _money
-		})
+		addcash = true,
+		money = _money
+	})
 end)
 
 RegisterNetEvent("redemrp:addXP")
 AddEventHandler("redemrp:addXP", function(_xp, native, current)
 	if Config.ShowXPandLevel == 1 then
-	SendNUIMessage({
+		SendNUIMessage({
 			addxp = true,
 			xp = _xp
 		})
-	else end
+	end
 end)
 
 RegisterNetEvent("redemrp:removeXP")
 AddEventHandler("redemrp:removeXP", function(_xp, native, current)
 	if Config.ShowXPandLevel == 1 then
-	SendNUIMessage({
+		SendNUIMessage({
 			removexp = true,
 			xp = _xp
 		})
-	else end
+	end
 end)
 
 RegisterNetEvent("redemrp:removeLevel")
 AddEventHandler("redemrp:removeLevel", function(_level, native, current)
 	if Config.ShowXPandLevel == 1 then
-	SendNUIMessage({
+		SendNUIMessage({
 			removelevel = true,
 			level = _level
 		})
-	else end
+	end
 end)
 
 RegisterNetEvent("redemrp:addLevel")
 AddEventHandler("redemrp:addLevel", function(_level, native, current)
 	if Config.ShowXPandLevel == 1 then
-	SendNUIMessage({
+		SendNUIMessage({
 			addlevel = true,
 			level = _level
 		})
-	else end
+	end
 end)
 
 RegisterNetEvent("redemrp:addGold")
 AddEventHandler("redemrp:addGold", function(_gold, native, current)
 	SendNUIMessage({
-			addgold = true,
-			gold = _gold
-		})
+		addgold = true,
+		gold = _gold
+	})
 end)
 
 RegisterNetEvent("redemrp:removeMoney")
 AddEventHandler("redemrp:removeMoney", function(_money, native, current)
-	print("REMOVE CASH")
 	SendNUIMessage({
-			removecash = true,
-			money = _money
-		})
+		removecash = true,
+		money = _money
+	})
 end)
 
 RegisterNetEvent("redemrp:removeGold")
 AddEventHandler("redemrp:removeGold", function(_gold, native, current)
 	SendNUIMessage({
-			removegold = true,
-			gold = _gold
-		})
+		removegold = true,
+		gold = _gold
+	})
 end)

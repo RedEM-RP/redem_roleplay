@@ -25,7 +25,7 @@ CreateThread(function()
 	    if Config.pvp then
             Citizen.InvokeNative(0xF808475FA571D823, true) --enable friendly fire
             NetworkSetFriendlyFireOption(true)
-		SetRelationshipBetweenGroups(5, `PLAYER`, `PLAYER`)
+		    SetRelationshipBetweenGroups(5, `PLAYER`, `PLAYER`)
         end
     end
 end)
