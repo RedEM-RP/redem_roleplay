@@ -14,8 +14,9 @@ Join our discord to get the newest updates and support! - https://discord.gg/FKH
 - Job System
 - Unlimited Jobs
 - Unlimited Job Grades
-- Inventory System [not done yet]
+- Inventory System [redemrp_inventory](https://github.com/RedEM-RP/redemrp_inventory)
 - Customizable HUD
+- Fallout 4 like dialog system [redemrp_dialog](https://github.com/RedEM-RP/redemrp_dialog)
 - Leveling and EXP system (Unlimited Level support)
 - Up to 10 Characters - [redemrp_identity](https://github.com/RedEM-RP/redemrp_identity)
 - Respawn Place Selection - [redemrp_respawn](https://github.com/RedEM-RP/redemrp_respawn)
@@ -50,8 +51,6 @@ ensure redem_roleplay
 
 ## 4. Documentation and Usage
 Currently there is no official documentation yet, u can check things on discord [Join RedEM Discord](https://discord.gg/FKH4uwb)
-
-It will be avaiable later on [This page](https://redemrp.org/)
 
 ## 5. Credits
 
