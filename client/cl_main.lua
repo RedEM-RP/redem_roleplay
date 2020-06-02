@@ -20,7 +20,7 @@ Citizen.CreateThread(function()
 end)
 
 function enablePvP()
-    if Config.pvp then
+    if Config.pvp == 1 then
         Citizen.InvokeNative(0xF808475FA571D823, true) --enable friendly fire
         NetworkSetFriendlyFireOption(true)
         SetRelationshipBetweenGroups(5, `PLAYER`, `PLAYER`)
@@ -36,7 +36,7 @@ AddEventHandler("playerSpawned", function()
 end)
 
 AddEventHandler("onClientResourceStart", function() -- Reveal whole map on spawn and enable pvp
-    if Config.RevealMap then
+    if Config.RevealMap == 1 then
         Citizen.InvokeNative(0x4B8F743A4A6D2FF8, true)
     end
 end)
@@ -50,9 +50,8 @@ Citizen.CreateThread(function()
     end
 end)
     
-
 function DrawCoords()
-    if Config.Coords then
+    if Config.Coords == 1 then
         local _source = source
         local ent = GetPlayerPed(_source)
         local pp = GetEntityCoords(ent)
