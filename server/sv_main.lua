@@ -98,6 +98,9 @@ AddEventHandler('playerDropped', function()
 	end
 end)
 
+AddEventHandler("redemrp:getAllPlayers", function(cb)
+	cb(Users)
+end)
 
 function getPlayerFromId(id)
 	return Users[id]
