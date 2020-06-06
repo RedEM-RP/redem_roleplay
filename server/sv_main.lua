@@ -70,10 +70,6 @@ function addCharacter(_source, user, firstname, lastname)
 	end
 end
 
-AddEventHandler("redem:playerLoaded", function(_source, user)
-
-end)
-
 AddEventHandler("redemrp:getPlayerFromId", function(user, cb)
 	if(Users)then
 		if(Users[user])then
