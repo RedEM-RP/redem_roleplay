@@ -2,7 +2,7 @@
 -- Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License --
 
 _serverPrefix = "redemrp: "
-_VERSION = 'PRE-LAUNCH 0.1'
+_VERSION = '1.0.0'
 _firstCheckPerformed = false
 _UUID = LoadResourceFile(GetCurrentResourceName(), "uuid") or "unknown"
 
