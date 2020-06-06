@@ -20,6 +20,7 @@ client_scripts {
 
 server_scripts {
 	'config.lua',
+	'server/metrics.lua',
 	'server/sv_main.lua',
 	'server/sv_player.lua',
 	'server/sv_entities.lua',
