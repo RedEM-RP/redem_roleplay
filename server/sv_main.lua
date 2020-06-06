@@ -4,7 +4,6 @@
 _serverPrefix = "redemrp: "
 _VERSION = '1.0.0'
 _firstCheckPerformed = false
-_UUID = LoadResourceFile(GetCurrentResourceName(), "uuid") or "unknown"
 
 Users = {}
 
