@@ -3,7 +3,7 @@ if Config.AdminCommands == 1 then
 		if args[1] == nil or args[2] == nil then
 			print("argument #1 or #2 is bad")
 		else
-			TriggerEvent("redemrp:SetSomeGold", source, args[1], args[2], function(cb)end)
+			TriggerEvent("redemrp:setGold", source, args[1], args[2], function(cb)end)
 		end
 	end, false)
 
@@ -11,7 +11,7 @@ if Config.AdminCommands == 1 then
 		if args[1] == nil or args[2] == nil then
 			print("argument #1 or #2 is bad")
 		else
-			TriggerEvent("redemrp:SetSomeMoney", source, args[1], args[2], function(cb)end)
+			TriggerEvent("redemrp:setMoney", source, args[1], args[2], function(cb)end)
 		end
 	end, false)
 
@@ -19,7 +19,7 @@ if Config.AdminCommands == 1 then
 		if args[1] == nil or args[2] == nil then
 			print("argument #1 or #2 is bad")
 		else
-			TriggerEvent("redemrp:SetSomeLevel", source, args[1], args[2], function(cb)end)
+			TriggerEvent("redemrp:setLevel", source, args[1], args[2], function(cb)end)
 		end
 	end, false)
 
@@ -27,7 +27,7 @@ if Config.AdminCommands == 1 then
 		if args[1] == nil or args[2] == nil then
 			print("argument #1 or #2 is bad")
 		else
-			TriggerEvent("redemrp:SetSomeXP", source, args[1], args[2], function(cb)end)
+			TriggerEvent("redemrp:setXP", source, args[1], args[2], function(cb)end)
 		end
 	end, false)
 
@@ -35,7 +35,7 @@ if Config.AdminCommands == 1 then
 		if args[1] == nil or args[2] == nil or args[3] == nil then
 			print("argument #1, #2 or #3 is bad")
 		else
-			TriggerEvent("redemrp:SetSomeJob", source, args[1], args[2], args[3], function(cb)end)
+			TriggerEvent("redemrp:setJob", source, args[1], args[2], args[3], function(cb)end)
 		end
 	end, false)
 
@@ -43,7 +43,7 @@ if Config.AdminCommands == 1 then
 		if args[1] == nil or args[2] == nil then
 			print("argument #1 or #2 is bad")
 		else
-			TriggerEvent("redemrp:AddSomeMoney", source, args[1], args[2], function(cb)end)
+			TriggerEvent("redemrp:addMoney", source, args[1], args[2], function(cb)end)
 		end
 	end, false)
 
@@ -51,7 +51,7 @@ if Config.AdminCommands == 1 then
 		if args[1] == nil or args[2] == nil then
 			print("argument #1 or #2 is bad")
 		else
-			TriggerEvent("redemrp:AddSomeGold", source, args[1], args[2], function(cb)end)
+			TriggerEvent("redemrp:addGold", source, args[1], args[2], function(cb)end)
 		end
 	end, false)
 
@@ -59,7 +59,7 @@ if Config.AdminCommands == 1 then
 		if args[1] == nil or args[2] == nil then
 			print("argument #1 or #2 is bad")
 		else
-			TriggerEvent("redemrp:AddSomeXP", source, args[1], args[2], function(cb)end)
+			TriggerEvent("redemrp:addXP", source, args[1], args[2], function(cb)end)
 		end
 	end, false)
 
@@ -67,7 +67,7 @@ if Config.AdminCommands == 1 then
 		if args[1] == nil or args[2] == nil then
 			print("argument #1 or #2 is bad")
 		else
-			TriggerEvent("redemrp:RemoveSomeMoney", source, args[1], args[2], function(cb)end)
+			TriggerEvent("redemrp:removeMoney", source, args[1], args[2], function(cb)end)
 		end
 	end, false)
 
@@ -75,7 +75,7 @@ if Config.AdminCommands == 1 then
 		if args[1] == nil or args[2] == nil then
 			print("argument #1 or #2 is bad")
 		else
-			TriggerEvent("redemrp:RemoveSomeGold", source, args[1], args[2], function(cb)end)
+			TriggerEvent("redemrp:removeGold", source, args[1], args[2], function(cb)end)
 		end
 	end, false)
 
@@ -83,12 +83,17 @@ if Config.AdminCommands == 1 then
 		if args[1] == nil or args[2] == nil then
 			print("argument #1 or #2 is bad")
 		else
-			TriggerEvent("redemrp:SetSomeGroup", source, args[1], args[2], function(cb)end)
+			TriggerEvent("redemrp:setGroup", source, args[1], args[2], function(cb)end)
 		end
 	end, false)
 end
 
 AddEventHandler("redemrp:SetSomeGold", function(source, id, count, cb)
+	print("[" .. GetInvokingResource() .. "] ^1" .. " called deprecated event `redemrp:SetSomeGold` please be sure to update to the standarized API introduced in v1.0.0")
+	TriggerEvent("redemrp:setGold", source, id, count, cb)
+end)
+
+AddEventHandler("redemrp:setGold", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 		if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
@@ -109,6 +114,11 @@ AddEventHandler("redemrp:SetSomeGold", function(source, id, count, cb)
 end)
 
 AddEventHandler("redemrp:SetSomeJob", function(source, id, count, grade, cb)
+	print("[" .. GetInvokingResource() .. "] ^1" .. " called deprecated event `redemrp:SetSomeJob` please be sure to update to the standarized API introduced in v1.0.0")
+	TriggerEvent("redemrp:setJob", source, id, count, grade, cb)
+end)
+
+AddEventHandler("redemrp:setJob", function(source, id, count, grade, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 		if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
@@ -128,8 +138,13 @@ AddEventHandler("redemrp:SetSomeJob", function(source, id, count, grade, cb)
 		end
 	end)
 end)
-	
+
 AddEventHandler("redemrp:SetSomeMoney", function(source, id, count, cb)
+	print("[" .. GetInvokingResource() .. "] ^1" .. " called deprecated event `redemrp:SetSomeMoney` please be sure to update to the standarized API introduced in v1.0.0")
+	TriggerEvent("redemrp:setMoney", source, id, count, cb)
+end)
+
+AddEventHandler("redemrp:setMoney", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 		if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
@@ -148,8 +163,13 @@ AddEventHandler("redemrp:SetSomeMoney", function(source, id, count, cb)
 		end
 	end)
 end)
-	
+
 AddEventHandler("redemrp:AddSomeGold", function(source, id, count, cb)
+	print("[" .. GetInvokingResource() .. "] ^1" .. " called deprecated event `redemrp:AddSomeGold` please be sure to update to the standarized API introduced in v1.0.0")
+	TriggerEvent("redemrp:addGold", source, id, count, cb)
+end)
+
+AddEventHandler("redemrp:addGold", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 		if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
@@ -170,6 +190,11 @@ AddEventHandler("redemrp:AddSomeGold", function(source, id, count, cb)
 end)
 	
 AddEventHandler("redemrp:AddSomeMoney", function(source, id, count, cb)
+	print("[" .. GetInvokingResource() .. "] ^1" .. " called deprecated event `redemrp:AddSomeMoney` please be sure to update to the standarized API introduced in v1.0.0")
+	TriggerEvent("redemrp:addMoney", source, id, count, cb)
+end)
+
+AddEventHandler("redemrp:addMoney", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 		if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then	
@@ -190,6 +215,11 @@ AddEventHandler("redemrp:AddSomeMoney", function(source, id, count, cb)
 end)
 	
 AddEventHandler("redemrp:RemoveSomeGold", function(source, id, count, cb)
+	print("[" .. GetInvokingResource() .. "] ^1" .. " called deprecated event `redemrp:RemoveSomeGold` please be sure to update to the standarized API introduced in v1.0.0")
+	TriggerEvent("redemrp:removeGold", source, id, count, cb)
+end)
+
+AddEventHandler("redemrp:removeGold", function(source, id, count, cb)
 	local _perm = tonumber(source)
 		TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 		if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
@@ -210,6 +240,11 @@ AddEventHandler("redemrp:RemoveSomeGold", function(source, id, count, cb)
 end)
 	
 AddEventHandler("redemrp:RemoveSomeMoney", function(source, id, count, cb)
+	print("[" .. GetInvokingResource() .. "] ^1" .. " called deprecated event `redemrp:RemoveSomeMoney` please be sure to update to the standarized API introduced in v1.0.0")
+	TriggerEvent("redemrp:removeMoney", source, id, count, cb)
+end)
+
+AddEventHandler("redemrp:removeMoney", function(source, id, count, cb)
 	local _perm = tonumber(source)
 		TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 		if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
@@ -230,6 +265,11 @@ AddEventHandler("redemrp:RemoveSomeMoney", function(source, id, count, cb)
 end)
 	
 AddEventHandler("redemrp:AddSomeXP", function(source, id, count, cb)
+	print("[" .. GetInvokingResource() .. "] ^1" .. " called deprecated event `redemrp:AddSomeXP` please be sure to update to the standarized API introduced in v1.0.0")
+	TriggerEvent("redemrp:addXP", source, id, count, cb)
+end)
+
+AddEventHandler("redemrp:addXP", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 		if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
@@ -250,6 +290,11 @@ AddEventHandler("redemrp:AddSomeXP", function(source, id, count, cb)
 end)
 	
 AddEventHandler("redemrp:SetSomeLevel", function(source, id, count, cb)
+	print("[" .. GetInvokingResource() .. "] ^1" .. " called deprecated event `redemrp:SetSomeLevel` please be sure to update to the standarized API introduced in v1.0.0")
+	TriggerEvent("redemrp:setLevel", source, id, count, cb)
+end)
+
+AddEventHandler("redemrp:setLevel", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 		if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
@@ -270,6 +315,11 @@ AddEventHandler("redemrp:SetSomeLevel", function(source, id, count, cb)
 end)
 	
 AddEventHandler("redemrp:SetSomeXP", function(source, id, count, cb)
+	print("[" .. GetInvokingResource() .. "] ^1" .. " called deprecated event `redemrp:SetSomeXP` please be sure to update to the standarized API introduced in v1.0.0")
+	TriggerEvent("redemrp:setXP", source, id, count, cb)
+end)
+
+AddEventHandler("redemrp:setXP", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 		if _perm ~= 0 and (pg.getGroup() ~= "admin" and pg.getGroup() ~= "superadmin") then
@@ -290,6 +340,11 @@ AddEventHandler("redemrp:SetSomeXP", function(source, id, count, cb)
 end)	
 	
 AddEventHandler("redemrp:SetSomeGroup", function(source, id, count, cb)
+	print("[" .. GetInvokingResource() .. "] ^1" .. " called deprecated event `redemrp:SetSomeGroup` please be sure to update to the standarized API introduced in v1.0.0")
+	TriggerEvent("redemrp:setGroup", source, id, count, cb)
+end)
+
+AddEventHandler("redemrp:setGroup", function(source, id, count, cb)
 	local _perm = tonumber(source)
 	TriggerEvent('redemrp:getPlayerFromId', _perm, function(pg)
 		if _perm ~= 0 and pg.getGroup() ~= 'superadmin' then
