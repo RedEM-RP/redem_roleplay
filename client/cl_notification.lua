@@ -14,10 +14,11 @@ RegisterNetEvent('redem_roleplay:NotifyLeft')
 AddEventHandler('redem_roleplay:NotifyLeft', function(firsttext, secondtext, dict, icon, duration)
     if not HasStreamedTextureDictLoaded(dict) then
         RequestStreamedTextureDict(dict, true) 
-            while not HasStreamedTextureDictLoaded(dict) do
-                Wait(0)
-            end
+        while not HasStreamedTextureDictLoaded(dict) do
+            Wait(0)
+        end
     end
+    
     if icon ~= nil then
         exports.redem_roleplay.DisplayLeftNotification(0, tostring(firsttext), tostring(secondtext), tostring(dict), tostring(icon), tonumber(duration))
     else
@@ -28,10 +29,10 @@ end)
 
 RegisterNetEvent('redem_roleplay:Tip')
 AddEventHandler('redem_roleplay:Tip', function(text, duration)
-exports.redem_roleplay.DisplayTip(0, tostring(text), tonumber(duration))
+    exports.redem_roleplay.DisplayTip(0, tostring(text), tonumber(duration))
 end)
 
 RegisterNetEvent('redem_roleplay:NotifyTop')
 AddEventHandler('redem_roleplay:NotifyTop', function(text, duration)
-exports.redem_roleplay.DisplayTopCenterNotification(0, tostring(text), tonumber(duration))
+    exports.redem_roleplay.DisplayTopCenterNotification(0, tostring(text), tonumber(duration))
 end)
