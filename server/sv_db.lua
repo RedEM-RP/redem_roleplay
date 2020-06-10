@@ -1,4 +1,4 @@
-local version = 4
+local version = 5
 
 updateResourceDatabase = function(resourceName, lastVersion, new)
     if(new)then
