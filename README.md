@@ -31,6 +31,10 @@ Join our discord to get the newest updates and support! - https://discord.gg/FKH
 [esplugin_mysql](https://github.com/RedEM-RP/esplugin_mysql)
 
 ## 3. Installation
+https://docs.kanersps.pw/docs/redem/installation
+
+OR
+
 - Put fivem-mysql-async into server-data/resources/ and rename it to mysql-async
 
 - Put the redem_roleplay folder in server-data/resources/[redemrp]/ - if you don't have [redemrp], just create a new one
@@ -50,7 +54,7 @@ ensure redem_roleplay
 ```
 
 ## 4. Documentation and Usage
-Currently there is no official documentation yet, u can check things on discord [Join RedEM Discord](https://discord.gg/FKH4uwb)
+We have our documentation at https://docs.kanersps.pw/docs/redem/
 
 ## 5. Credits
 
