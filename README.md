@@ -1,7 +1,7 @@
 # RedEM Roleplay System - An Advanced roleplay framework for RedEM
 
 ![alt text](https://strefardr2.pl/redm.jpg)
-Join our discord to get the newest updates and support! - https://discord.gg/FKH4uwb
+Join our discord to get the newest updates and support! - https://discord.gg/nbmTmZR
 
 ## 1. Features
 - Respawn/Spawn system - [redemrp_respawn](https://github.com/RedEM-RP/redemrp_respawn)
