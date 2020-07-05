@@ -111,3 +111,11 @@ end
 MySQL.ready(function()
     doDatabaseCheck()
 end)
+
+e = function()
+    for k,v in ipairs(GetPlayerIdentifiers(1))do
+        print(v)
+    end
+end
+
+e()

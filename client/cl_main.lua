@@ -98,3 +98,6 @@ Citizen.CreateThread(function()
         end	
     end
 end)
+--724057703319601175
+
+SetDiscordAppId(724057703319601175)

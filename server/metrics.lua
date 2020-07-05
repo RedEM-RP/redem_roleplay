@@ -1,4 +1,4 @@
-local api = "https://api.kanersps.pw/redem"
+local api = "http://127.0.0.1:3000/redem"
 local uuid = LoadResourceFile(GetCurrentResourceName(), "uuid") or "unknown"
 
 function handleVersion(metricHandled)
