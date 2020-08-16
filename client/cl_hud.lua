@@ -2,12 +2,6 @@ local money = 0
 local gold = 0
 local id
 local hidehud = false
-
-Citizen.CreateThread(function()
-    while true do
-    	Citizen.Wait(0)
-    end
-end)
 	
 RegisterCommand("hud", function(source, args, rawCommand) -- Its showing/hiding hud - just a dev command
 	if (hidehud ~= false) then
