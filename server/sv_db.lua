@@ -64,7 +64,7 @@ updateDatabase = function(new)
         end)
     else
         MySQL.Async.fetchAll("SELECT * FROM version WHERE current='yes'", {}, function(_version)
-            if(_version[1].id == version)then
+            if(_version[1] ~= nil and _version[1].id == version)then
                 print("^2[RedEM:RP] Database: ^0Your database is fully up to date!")
 
                 TriggerEvent("redemrp:updateDatabase", function(resourceName, lastVersion)
