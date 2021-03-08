@@ -22,7 +22,7 @@ exports('DisplayLeftNotification', (title, subTitle, dict, icon, duration) => {
 });
 
 exports('DisplayTopCenterNotification', (text, secondeText, duration) => {
-	const struct1 = new DataView(new ArrayBuffer(4 * 4));
+	const struct1 = new DataView(new ArrayBuffer(48));
 	struct1.setInt32(0, duration, true);
 
 	const string = CreateVarString(10, "LITERAL_STRING", text);
@@ -40,11 +40,8 @@ exports('DisplayTip', (text, duration) => {
 
 	const struct1 = new DataView(new ArrayBuffer(48));
 	struct1.setUint32(0, duration, true);
-	struct1.setUint32(8, 0, true);
-	struct1.setUint32(16, 0, true);
-	struct1.setUint32(32, 0, true);
 
-	const struct2 = new DataView(new ArrayBuffer(8 + 8));
+	const struct2 = new DataView(new ArrayBuffer(48));
 	struct2.setBigUint64(8, BigInt(str), true);
 
 	Citizen.invokeNative("0x049D5C615BD38BAD", struct1, struct2, 1);
