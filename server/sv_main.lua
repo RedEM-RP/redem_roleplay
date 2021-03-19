@@ -202,6 +202,18 @@ AddEventHandler('redemrp_db:updateUser', function(identifier, charid, new, callb
 	end)
 end)
 
+AddEventHandler('txAdmin:events:scheduledRestart', function(eventData)
+    if eventData.secondsRemaining == 60 then
+        CreateThread(function()
+            Wait(45000)
+            print("15 seconds before restart... saving all players!")
+		for k,v in pairs(Users)do
+			DropPlayer(tonumber(k), "A scheduled server restart is in progress")
+		end
+        end)
+    end
+end)
+
 function tLength(t)
 	local l = 0
 	for k,v in pairs(t)do
