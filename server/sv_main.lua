@@ -87,7 +87,7 @@ AddEventHandler('playerDropped', function()
 
 	if(Users[Source])then
 		TriggerEvent("redemrp:playerDropped", Users[Source])
-		TriggerEvent("redemrp_db:updateUser", Users[Source].getIdentifier(), tonumber(Users[Source].getSessionVar("charid")), {money = Users[Source].getMoney(), gold = Users[Source].getGold(), xp = tonumber(Users[Source].getXP()), level = tonumber(Users[Source].getLevel())}, function()
+		TriggerEvent("redemrp_db:updateUser", Users[Source].getIdentifier(), tonumber(Users[Source].getSessionVar("charid")), {money = Users[Source].getMoney(), gold = Users[Source].getGold(), xp = tonumber(Users[Source].getXP()), level = tonumber(Users[Source].getLevel()) , job = Users[Source].getJob(), jobgrade = tonumber(Users[Source].getJobgrade())}, function()
 		Users[Source] = nil
 		end)
 	end
