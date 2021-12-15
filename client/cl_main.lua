@@ -52,8 +52,7 @@ end)
     
 function DrawCoords()
     if Config.Coords == 1 then
-        local _source = source
-        local ent = GetPlayerPed(_source)
+        local ent = PlayerPedId()
         local pp = GetEntityCoords(ent)
         local hd = GetEntityHeading(ent)
         DrawTxt("x = " .. tonumber(string.format("%.2f", pp.x)) .. " y = " .. tonumber(string.format("%.2f", pp.y)) .. " z = " .. tonumber(string.format("%.2f", pp.z)) .. " | H: " .. tonumber(string.format("%.2f", hd)), 0.01, 0.0, 0.4, 0.4, true, 255, 255, 255, 150, false)
