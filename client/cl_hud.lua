@@ -2,12 +2,6 @@ local money = 0
 local gold = 0
 local id
 local hidehud = false
-
-function roundMe(n, dec)
-    local power = 10^dec
-    return math.floor(n * power) / power
-end
-
 	
 RegisterCommand("hud", function(source, args, rawCommand) -- Its showing/hiding hud - just a dev command
 	if (hidehud ~= false) then
@@ -49,7 +43,7 @@ RegisterNetEvent('redem:activateMoney')
 AddEventHandler('redem:activateMoney', function(_money)
 	SendNUIMessage({
 		setmoney = true,
-		money = roundMe(_money, 2)
+		money = tonumber(string.format("%.2f",tostring(_money)))
 	})
 end)
 
@@ -65,7 +59,7 @@ RegisterNetEvent("redemrp:moneyLoaded")
 AddEventHandler("redemrp:moneyLoaded", function(_money)
 	SendNUIMessage({
 		setmoney = true,
-		money = roundMe(_money, 2)
+		money = tonumber(string.format("%.2f",tostring(_money)))
 	})
 end)
 
