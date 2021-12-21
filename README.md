@@ -24,7 +24,7 @@ Join our discord to get the newest updates and support! - https://discord.gg/nbm
 
 ## 2. Requirements
  
-[mysql-async](https://github.com/amakuu/mysql-async-temporary)
+[mysql-async](https://github.com/brouznouf/fivem-mysql-async/releases)
 
 [redem](https://github.com/kanersps/redem)
 
