@@ -117,7 +117,7 @@ RegisterNetEvent("redem:addMoney")
 AddEventHandler("redem:addMoney", function(_money, native, current)
 	SendNUIMessage({
 		addcash = true,
-		money = roundMe(_money, 2)
+		money = tonumber(string.format("%.2f",tostring(_money)))
 	})
 end)
 
@@ -173,7 +173,7 @@ RegisterNetEvent("redemrp:removeMoney")
 AddEventHandler("redemrp:removeMoney", function(_money, native, current)
 	SendNUIMessage({
 		removecash = true,
-		money = roundMe(_money, 2)
+		money = tonumber(string.format("%.2f",tostring(_money)))
 	})
 end)
 
@@ -181,7 +181,7 @@ RegisterNetEvent("redem:removeMoney")
 AddEventHandler("redem:removeMoney", function(_money, native, current)
 	SendNUIMessage({
 		removecash = true,
-		money = roundMe(_money, 2)
+		money = tonumber(string.format("%.2f",tostring(_money)))
 	})
 end)
 
