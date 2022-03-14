@@ -6,7 +6,9 @@
 local firstSpawn = false
 
 function printClient(message)
+    if Config.Debuglogs then
     print("RedEM_Roleplay: " .. message)
+    end
 end
 
 Citizen.CreateThread(function()
