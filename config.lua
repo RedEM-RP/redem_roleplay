@@ -8,3 +8,4 @@ Config.ShowXPandLevel     = GetConvarInt("redemrp_showlevel", 1)          -- tru
 Config.pvp                = GetConvarInt("redemrp_enablepvp", 1)          -- true/false to enable or disable PVP
 Config.EntityDistance     = GetConvarInt("redemrp_entitydistance", 50.0)  -- 
 Config.Debuglogs          = true                                          -- Enable console logs (For developpers) (in production turn off, for clean console logs)
+Config.DisableAIM         = true                                          -- Disable AIM from controllers (ex : xbox targeting auto aim)
