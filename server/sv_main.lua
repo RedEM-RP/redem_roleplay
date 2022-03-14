@@ -56,7 +56,9 @@ function loadCharacter(_source, user, charid)
 			TriggerClientEvent('redemrp:levelLoaded', _source, Users[_source].getLevel())
 			TriggerClientEvent('redemrp:showID', _source, _source)
 		else
+			if Config.Debuglogs then
 			print("That character does not exist!")
+			end
 		end
 	end)
 end
@@ -64,7 +66,9 @@ end
 function addCharacter(_source, user, firstname, lastname)
 	if(firstname and lastname)then
 		TriggerEvent("redemrp_db:createUser", user.getIdentifier(), firstname, lastname, function(charID)
+			if Config.Debuglogs then	
 			print("Character made!")
+			end
 			loadCharacter(_source, user, charID)
 		end)
 	end
@@ -147,7 +151,11 @@ AddEventHandler('redemrp_db:createUser', function(identifier, firstname, lastnam
 		while CharacterExist(charID) do 
 		   charID = charID + 1
       		 end
+				
+		if Config.Debuglogs then		
 		print("Found charID "..charID)
+		end
+				
 		MySQL.Async.execute('INSERT INTO characters (`identifier`, `firstname`, `lastname`, `characterid`) VALUES (@identifier, @firstname, @lastname, @characterid);',
 		{
 			identifier = identifier,
@@ -206,7 +214,11 @@ AddEventHandler('txAdmin:events:scheduledRestart', function(eventData)
     if eventData.secondsRemaining == 60 then
         CreateThread(function()
             Wait(45000)
+					
+	    if Config.Debuglogs then			
             print("15 seconds before restart... saving all players!")
+	    end
+					
 		for k,v in pairs(Users)do
 			DropPlayer(tonumber(k), "A scheduled server restart is in progress")
 		end
