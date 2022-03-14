@@ -164,7 +164,6 @@ function CreateRoleplayPlayer(source, identifier, name, money, gold, license, gr
         --print("Old level " .. lvlNow .. " == " .. lvlNew)
             end
 			
-
 			--self.xp = newXP
 			if newXP > self.xp then
 				self.xp = newXP
