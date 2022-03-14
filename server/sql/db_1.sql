@@ -2,12 +2,7 @@ DROP DATABASE IF EXISTS `redemrp_gamemode`;
 CREATE DATABASE IF NOT EXISTS `redemrp_gamemode`;
 USE `redemrp_gamemode`;
 
-
 -- --------------------------------------------------------
-
---
--- Structure de la table `characters`
---
 
 DROP TABLE IF EXISTS `characters`;
 CREATE TABLE IF NOT EXISTS `characters` (
@@ -28,10 +23,6 @@ CREATE TABLE IF NOT EXISTS `characters` (
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `users`
---
-
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `identifier` varchar(50) COLLATE utf8mb4_bin NOT NULL,
@@ -46,10 +37,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `version`
---
-
 DROP TABLE IF EXISTS `version`;
 CREATE TABLE IF NOT EXISTS `version` (
   `id` int(11) NOT NULL,
@@ -59,14 +46,9 @@ CREATE TABLE IF NOT EXISTS `version` (
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `web_permissions`
---
-
 DROP TABLE IF EXISTS `web_permissions`;
 CREATE TABLE IF NOT EXISTS `web_permissions` (
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
   `role` varchar(50) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-COMMIT;
