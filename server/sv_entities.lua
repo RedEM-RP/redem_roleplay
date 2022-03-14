@@ -30,7 +30,9 @@ function entity(type, location, name, metadata, update)
 
     Entities[self.uid] = self.functions
 
+    if Config.Debuglogs then
     print("[RedEMRP] Entity created(" .. tostring(self.uid) .. "): " .. tostring(self.type) .. " " .. tostring(self.name))
+    end
 end
 
 Citizen.CreateThread(function()
@@ -59,7 +61,10 @@ end)
 
 RegisterServerEvent("redemrp:request_entities")
 AddEventHandler("redemrp:request_entities", function(x, y)
+		
+    if Config.Debuglogs then	
     print("[RedEMRP] Entity update requested by: " .. GetPlayerName(source) .. " at x" .. tostring(x) .. ", y" .. tostring(y))
+    end
 
     local _source = source
 
@@ -69,7 +74,10 @@ AddEventHandler("redemrp:request_entities", function(x, y)
         if (distance(v.getLocation().x, v.getLocation().y, x, y) < Config.EntityDistance) then
             entities[k] = {type = v.get('type'), location = v.getLocation(), hash = v.get('metadata')}
 
+	    if Config.Debuglogs then
             print("[RedEMRP] Entity sent to client(" .. tostring(v.get('uid')) .. "): " .. v.get('name'))
+            end
+				
         end
     end
 
