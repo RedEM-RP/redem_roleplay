@@ -10,10 +10,15 @@ updateResourceDatabase = function(resourceName, lastVersion, new)
                 
                 if(curVersion == 1)then
                     MySQL.Sync.execute("INSERT INTO version(id, resource) VALUES(@id, @resource);", { id = curVersion, resource = resourceName })
+
+	                if Config.Debuglogs then
                     print("^2[RedEM:RP] Database(" .. resourceName .. "): ^0Successfully created database")
+                    end
                 else
                     MySQL.Sync.execute("INSERT INTO version(id, resource) VALUES(@id, @resource);", { id = curVersion, resource = resourceName })
+                    if Config.Debuglogs then
                     print("^2[RedEM:RP] Database(" .. resourceName .. "): ^0Successfully updated database for version: " .. curVersion)
+                    end
                 end
             end
 
@@ -25,7 +30,9 @@ updateResourceDatabase = function(resourceName, lastVersion, new)
                 updateResourceDatabase(resourceName, lastVersion, true)
             else
                 if(_resourceVersion[1].id == lastVersion)then
+                    if Config.Debuglogs then
                     print("^2[RedEM:RP] Database(" .. resourceName .. "): ^0Your database is fully up to date!")
+                    end
                 else
                     for curVersion = (_resourceVersion[1].id + 1),version do
                         local sql = LoadResourceFile(resourceName, "/server/sql/db_" .. curVersion .. ".sql")
@@ -33,7 +40,11 @@ updateResourceDatabase = function(resourceName, lastVersion, new)
                         MySQL.Sync.execute(sql, {})
 
                         MySQL.Sync.execute("INSERT INTO version(id, resource) VALUES(@id, @resource);", { id = curVersion, resource = resourceName })
+
+                        if Config.Debuglogs then
                         print("^2[RedEM:RP] Database(" .. resourceName .. "): ^0Successfully updated database for version: " .. curVersion)
+                        end
+
                         updateResourceDatabase(resourceName, lastVersion, false)
                     end
                 end
@@ -52,11 +63,19 @@ updateDatabase = function(new)
                 
                 if(curVersion == 1)then
                     MySQL.Sync.execute("INSERT INTO version(id, current) VALUES(@id, 'yes');", { id = curVersion })
+
+                    if Config.Debuglogs then
                     print("^2[RedEM:RP] Database: ^0Successfully created database")
+                    end
+
                 else
                     MySQL.Sync.execute("UPDATE version SET current='no' WHERE id=@id", { id = curVersion - 1 })
                     MySQL.Sync.execute("INSERT INTO version(id, current) VALUES(@id, 'yes');", { id = curVersion })
+
+                    if Config.Debuglogs then
                     print("^2[RedEM:RP] Database: ^0Successfully updated database for version: " .. curVersion)
+                    end
+
                 end
             end
 
@@ -65,7 +84,10 @@ updateDatabase = function(new)
     else
         MySQL.Async.fetchAll("SELECT * FROM version WHERE current='yes'", {}, function(_version)
             if(_version[1] ~= nil and _version[1].id == version)then
+
+                if Config.Debuglogs then
                 print("^2[RedEM:RP] Database: ^0Your database is fully up to date!")
+                end
 
                 TriggerEvent("redemrp:updateDatabase", function(resourceName, lastVersion)
                     updateResourceDatabase(resourceName, lastVersion)
@@ -78,7 +100,11 @@ updateDatabase = function(new)
 
                     MySQL.Sync.execute("UPDATE version SET current='no' WHERE id=@id", { id = curVersion - 1 })
                     MySQL.Sync.execute("INSERT INTO version(id, current) VALUES(@id, 'yes');", { id = curVersion })
+
+                    if Config.Debuglogs then
                     print("^2[RedEM:RP] Database: ^0Successfully updated database for version: " .. curVersion)
+                    end
+
                     updateDatabase(false)
                 end
             end
@@ -97,7 +123,9 @@ doDatabaseCheck = function()
                         if(#characters == 0)then
                             updateDatabase(true)
                         else
+                            if Config.Debuglogs then
                             print("^1[RedEM:RP] WARNING: ^0Your database is currently setup manually, if you'd like it to be done automatically please remove your current database and restart your server.")
+                            end
                         end
                     end)
                 else
