@@ -30,6 +30,7 @@ RegisterCommand("sc", function(source, args, rawCommand)
 	end)
 end)
 
+
 RegisterCommand("ac", function(source, args, rawCommand)
 	local _source = source
 	TriggerEvent("redem:getPlayerFromId", _source, function(user)
