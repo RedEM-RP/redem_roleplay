@@ -11,7 +11,7 @@ client_scripts {
 	'client/cl_entities.lua',
 	'client/cl_hud.lua',
 	'client/cl_callback.lua',
-	'client/cl_notification.js',
+	--'client/cl_notification.js', no need any more
 	'client/cl_notification.lua',
 	'html/ui.html',
 	'html/style.css',
