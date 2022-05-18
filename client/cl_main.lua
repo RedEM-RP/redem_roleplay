@@ -10,8 +10,8 @@ function printClient(message)
 end
 
 Citizen.CreateThread(function()
-    while firstSpawn == false do
-        local spawned = Citizen.InvokeNative(0xB8DFD30D6973E135 --[[NetworkIsPlayerActive]], PlayerPedId(), Citizen.ResultAsInteger())
+    while not firstSpawn  do
+        local spawned = NetworkIsPlayerActive(PlayerPedId(), Citizen.ResultAsInteger())
         if spawned then
             TriggerEvent("redem:setDrawUI", false)
             firstSpawn = true
@@ -49,7 +49,7 @@ Citizen.CreateThread(function()
         DisableControlAction(0, 0xCF8A4ECA, true)
     end
 end)
-    
+
 function DrawCoords()
     if Config.Coords == 1 then
         local ent = PlayerPedId()
@@ -62,18 +62,17 @@ end
 
 function DrawTxt(str, x, y, w, h, enableShadow, col1, col2, col3, a, centre)
     local str = CreateVarString(10, "LITERAL_STRING", str)
-    
+
     SetTextScale(w, h)
     SetTextColor(math.floor(col1), math.floor(col2), math.floor(col3), math.floor(a))
     SetTextCentre(centre)
     if enableShadow then SetTextDropshadow(1, 0, 0, 0, 255) end
     DisplayText(str, x, y)
 end
-    
+
 function CreateVarString(p0, p1, variadic)
     return Citizen.InvokeNative(0xFA925AC00EB830B9, p0, p1, variadic, Citizen.ResultAsLong())
 end
-
 
 Citizen.CreateThread(function()
     local active = false
@@ -88,15 +87,14 @@ Citizen.CreateThread(function()
                 timer = timer + 1
                 SetRelationshipBetweenGroups(1, `PLAYER`, `PLAYER`)
             end
-            
             active = false
         end
-            
+
         if active == false and not IsPedOnMount(PlayerPedId()) and not IsPedInAnyVehicle(PlayerPedId()) then
             SetRelationshipBetweenGroups(5, `PLAYER`, `PLAYER`)
-        end	
+        end
     end
 end)
---724057703319601175
 
+-- 724057703319601175
 SetDiscordAppId(724057703319601175)

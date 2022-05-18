@@ -1,4 +1,4 @@
-Levels = { 0,
+Levels <const> = { 0,
     50,
     100,
     150,

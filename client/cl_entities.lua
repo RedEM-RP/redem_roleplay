@@ -1,9 +1,8 @@
 Entities = {}
 
-LoadModel = function(model)
+function LoadModel(model)
     while not HasModelLoaded(model) do
         RequestModel(model)
-        
         Citizen.Wait(1)
     end
 end
@@ -24,8 +23,8 @@ RegisterNetEvent("redemrp:full_entity_list")
 AddEventHandler("redemrp:full_entity_list", function(entities)
     Entities = entities
 
-    for k,v in pairs(entities)do
-        if(v.type == "npc")then
+    for k, v in pairs(entities) do
+        if (v.type == "npc") then
             local newNPC = SpawnNPC(v.metadata.hash, v.location.x, v.location.y, v.location.z)
 
             FreezeEntityPosition(newNPC, true)
@@ -42,6 +41,6 @@ end)
 
 RegisterNetEvent("redemrp:manual_entity_update")
 AddEventHandler("redemrp:manual_entity_update", function()
-    local p_coords = GetEntityCoords(PlayerPedId())
-    TriggerServerEvent("redemrp:request_entities", p_coords.x, p_coords.y)    
+    local pCoords = GetEntityCoords(PlayerPedId())
+    TriggerServerEvent("redemrp:request_entities", pCoords.x, pCoords.y)
 end)
