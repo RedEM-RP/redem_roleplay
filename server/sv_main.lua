@@ -83,7 +83,7 @@ AddEventHandler("redemrp:getPlayerFromId", function(user, cb)
 end)
 
 AddEventHandler('playerDropped', function()
-	local src = src
+	local src = source
 
 	if (Users[src]) then
 		TriggerEvent("redemrp:playerDropped", Users[src])
