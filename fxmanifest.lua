@@ -6,12 +6,12 @@ rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aw
 
 client_scripts {
 	'config.lua',
+	'dataview.lua',
 	'client/cl_functions.lua',
 	'client/cl_main.lua',
 	'client/cl_entities.lua',
 	'client/cl_hud.lua',
 	'client/cl_callback.lua',
-	'client/cl_notification.js',
 	'client/cl_notification.lua',
 	'html/ui.html',
 	'html/style.css',
