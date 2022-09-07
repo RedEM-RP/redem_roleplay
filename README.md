@@ -58,9 +58,9 @@ We have our documentation at https://docs.kanersps.pw/docs/redem/
 
 ## 5. Credits
 
-Main code & quality assurance: https://github.com/kanersps
+Main code: https://github.com/amakuu
 
-Main contributor: https://github.com/amakuu
+Main contributor & quality assurance: https://github.com/kanersps
 
 
 And of course everyone who made a PR!
