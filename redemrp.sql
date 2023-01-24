@@ -8,7 +8,7 @@ CREATE TABLE `characters` (
   `id` int(11) NOT NULL,
   `identifier` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL,
   `characterid` int(11) DEFAULT 0,
-  `citizenid` varchar(7) COLLATE utf8mb4_bin NOT NULL,
+  `citizenid` varchar(10) COLLATE utf8mb4_bin NOT NULL,
   `money` int(11) DEFAULT 200,
   `bank` int(11) NOT NULL,
   `job` varchar(50) COLLATE utf8mb4_bin DEFAULT 'unemployed',

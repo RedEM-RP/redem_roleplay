@@ -1,4 +1,4 @@
-RedEM.Internal.NewPlayer = function(source, charid, dbdata)
+NewPlayer = function(source, charid, dbdata)
     local self = {}
     self.name = GetPlayerName(source)
     self.license = RedEM.Functions.GetIdentifier(source, 'license')

@@ -110,7 +110,7 @@ RedEM.DB.LoadCharacter = function(_source, identifier, charid, new)
 	MySQL.query('SELECT * FROM characters WHERE `identifier`=@identifier AND `characterid`=@characterid;', {identifier = identifier, characterid = charid}, function(users)
 		if users[1] then
 			local _user = users[1]
-			RedEM.Players[_source] = RedEM.Internal.NewPlayer(_source, charid, _user)
+			RedEM.Players[_source] = NewPlayer(_source, charid, _user)
 
 			Player(_source).state['isLoggedIn'] = true
 
