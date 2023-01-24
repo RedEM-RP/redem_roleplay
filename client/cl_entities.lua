@@ -20,8 +20,7 @@ function SpawnNPC(hash, x, y, z)
     return result
 end
 
-RegisterNetEvent("redemrp:full_entity_list")
-AddEventHandler("redemrp:full_entity_list", function(entities)
+RegisterNetEvent("redemrp:full_entity_list", function(entities)
     Entities = entities
 
     for k,v in pairs(entities)do
@@ -40,8 +39,7 @@ AddEventHandler("redemrp:full_entity_list", function(entities)
     end
 end)
 
-RegisterNetEvent("redemrp:manual_entity_update")
-AddEventHandler("redemrp:manual_entity_update", function()
+RegisterNetEvent("redemrp:manual_entity_update", function()
     local p_coords = GetEntityCoords(PlayerPedId())
     TriggerServerEvent("redemrp:request_entities", p_coords.x, p_coords.y)    
 end)

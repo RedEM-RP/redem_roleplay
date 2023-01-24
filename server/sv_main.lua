@@ -1,224 +1,221 @@
---                                     Licensed under                                     --
--- Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License --
+RedEM = {}
+RedEM.Version = Config.Version
+RedEM.Players = {}
+RedEM.DB = {}
+RedEM.ClientCallbacks = {}
+RedEM.ServerCallbacks = {}
+RedEM.PlayerCoords = {}
+local DBData
 
-_serverPrefix = "redemrp: "
-_VERSION = '1.0.0'
-_firstCheckPerformed = false
-
-Users = {}
-
-RegisterServerEvent("redemrp:selectCharacter")
-AddEventHandler("redemrp:selectCharacter", function(character)
-	local _source = source
-	TriggerEvent("redem:getPlayerFromId", _source, function(user)
-		loadCharacter(_source, user, character)
-	end)	
+exports("RedEM", function()
+	return RedEM
 end)
 
-RegisterServerEvent("redemrp:createCharacter")
-AddEventHandler("redemrp:createCharacter", function(firstname, lastname)
-	local _source = source
-	TriggerEvent("redem:getPlayerFromId", _source, function(user)
-		addCharacter(_source, user, firstname, lastname)
+RedEM.GetInventory = function()
+	local inv = nil
+	local timeout = 0
+	TriggerEvent("redemrp_inventory:getData", function(ret)
+		inv = ret
 	end)
-end)
-
-RegisterCommand("sc", function(source, args, rawCommand)
-	local _source = source
-	TriggerEvent("redem:getPlayerFromId", _source, function(user)
-		loadCharacter(_source, user, args[1])
-	end)
-end)
-
-RegisterCommand("ac", function(source, args, rawCommand)
-	local _source = source
-	TriggerEvent("redem:getPlayerFromId", _source, function(user)
-		addCharacter(_source, user, args[1], args[2])
-	end)
-end)
-
-function loadCharacter(_source, user, charid)
-	TriggerEvent("redemrp_db:retrieveUser", user.getIdentifier(), charid, function(_user)
-		if _user ~= false then
-			local rpPlayer = CreateRoleplayPlayer(_source, _user.identifier, _user.name, _user.money, _user.gold, _user.license, _user.group, _user.firstname, _user.lastname, _user.xp, _user.level, _user.job, _user.jobgrade)
-			Users[_source] = rpPlayer
-
-			for k,v in pairs(user) do Users[_source][k] = v end
-
-			-- Set character related stuff
-			Users[_source].setMoney(_user.money)
-			Users[_source].setSessionVar("charid", charid)
-
-			TriggerEvent('redemrp:playerLoaded', _source, Users[_source]) -- TO OTHER RESOURCES
-			TriggerClientEvent('redemrp:moneyLoaded', _source, Users[_source].getMoney())
-			TriggerClientEvent('redemrp:goldLoaded', _source, Users[_source].getGold())
-			TriggerClientEvent('redemrp:xpLoaded', _source, Users[_source].getXP())
-			TriggerClientEvent('redemrp:levelLoaded', _source, Users[_source].getLevel())
-			TriggerClientEvent('redemrp:showID', _source, _source)
-		else
-			print("That character does not exist!")
-		end
-	end)
+	while inv == nil do Wait(100) ; timeout = timeout + 1 ; if timeout > 100 then print("[redemrp] Getting Inventory timed out...") ; break end end
+	return inv
 end
 
-function addCharacter(_source, user, firstname, lastname)
-	if(firstname and lastname)then
-		TriggerEvent("redemrp_db:createUser", user.getIdentifier(), firstname, lastname, function(charID)
-			print("Character made!")
-			loadCharacter(_source, user, charID)
-		end)
+RedEM.GetPlayer = function(playerId)
+	playerId = tonumber(playerId)
+	if RedEM.Players then
+		if RedEM.Players[playerId] then
+			return RedEM.Players[playerId]
+		else
+ 			return nil
+		end
+	else
+		return nil
 	end
 end
 
-AddEventHandler("redemrp:getPlayerFromId", function(user, cb)
-	if(Users)then
-		if(Users[user])then
-			cb(Users[user])
+RedEM.GetPlayerByCitizenId = function(cid)
+	if RedEM.Players then
+		for k,v in pairs(RedEM.Players) do
+			if v.citizenid == cid then
+				return v
+			end
+		end
+	end
+	return nil
+end
+
+RedEM.GetPlayerCB = function(playerId, cb)
+	playerId = tonumber(playerId)
+	if RedEM.Players then
+		if RedEM.Players[playerId] then
+			Citizen.Trace("^2[redemrp] ^0Deprecated event used (redemrp:getPlayerFromId)\n^2[redemrp] ^0Please update your scripts to the new standard available at\n^2[redemrp] ^0https://github.com/RedEM-RP/redemrp_common/blob/master/README.md")
+			cb(RedEM.Players[playerId])
 		else
-			cb(nil)
+ 			cb(nil)
 		end
 	else
 		cb(nil)
 	end
-end)
+end
+AddEventHandler("redemrp:getPlayerFromId", RedEM.GetPlayerCB)
 
-AddEventHandler('playerDropped', function()
-	local Source = source
-
-	if(Users[Source])then
-		TriggerEvent("redemrp:playerDropped", Users[Source])
-		TriggerEvent("redemrp_db:updateUser", Users[Source].getIdentifier(), tonumber(Users[Source].getSessionVar("charid")), {money = Users[Source].getMoney(), gold = Users[Source].getGold(), xp = tonumber(Users[Source].getXP()), level = tonumber(Users[Source].getLevel()) , job = Users[Source].getJob(), jobgrade = tonumber(Users[Source].getJobgrade())}, function()
-		Users[Source] = nil
-		end)
+RegisterServerEvent('playerConnecting')
+AddEventHandler('playerConnecting', function(name, setKickReason)
+	local _source = source
+	if not RedEM.Functions.GetIdentifier(_source, "steam") then
+		setKickReason("Unable to find requested identifier: 'steam', please relaunch RedM")
+		CancelEvent()
 	end
 end)
 
-AddEventHandler("redemrp:getAllPlayers", function(cb)
-	cb(Users)
-end)
+RedEM.SelectCharacter = function(character)
+	local _source = source
+	RedEM.DB.LoadCharacter(_source, RedEM.Functions.GetIdentifier(_source, "steam"), character, false)
+end
+RegisterServerEvent("redemrp:selectCharacter", RedEM.SelectCharacter)
 
-function getPlayerFromId(id)
-	return Users[id]
+RedEM.DB.CreateCharacter = function(firstname, lastname)
+	local _source = source
+	local id = RedEM.Functions.GetIdentifier(_source, "steam")
+	if firstname and lastname and id then
+		local identifier = id
+		MySQL.query('SELECT * FROM characters WHERE `identifier`= @identifier', {identifier = identifier}, function(users)
+			DBData = users
+			local charID = 1
+			while CharacterExist(charID) do 
+				charID = charID + 1
+			end
+
+			local randomPOBoxNum = RedEM.Functions.CreatePOBox()		
+			local citizenId = RedEM.Functions.CreateCitizenId()
+
+			MySQL.update('INSERT INTO characters (`identifier`, `firstname`, `lastname`, `characterid`, `citizenid`, `pobox`) VALUES (@identifier, @firstname, @lastname, @characterid, @citizenid, @pobox);',
+			{
+				identifier = identifier,
+				firstname = firstname,
+				lastname = lastname,
+				characterid = charID,
+				citizenid = citizenId,
+				pobox = randomPOBoxNum,
+			}, function(rowsChanged)
+				RedEM.DB.LoadCharacter(_source, identifier, charID, true)
+			end)
+		end)
+	end
+end
+RegisterServerEvent("redemrp:createCharacter", RedEM.DB.CreateCharacter)
+
+RedEM.DB.LoadCharacter = function(_source, identifier, charid, new)
+	MySQL.query('SELECT * FROM characters WHERE `identifier`=@identifier AND `characterid`=@characterid;', {identifier = identifier, characterid = charid}, function(users)
+		if users[1] then
+			local _user = users[1]
+			RedEM.Players[_source] = RedEM.Internal.NewPlayer(_source, charid, _user)
+
+			Player(_source).state['isLoggedIn'] = true
+
+			TriggerEvent('redemrp:playerLoaded', _source, RedEM.Players[_source])
+			TriggerClientEvent('redemrp:moneyLoaded', _source, RedEM.Players[_source].money)
+			TriggerClientEvent('redemrp:showID', _source, _source)
+
+			TriggerClientEvent("redemrp_charselect:client:FinishSelection", _source, new)
+		end
+	end)
 end
 
-local function savePlayerMoney()
+AddEventHandler('playerDropped', function(reason)
+	local _source = source
+	if RedEM.Players[_source] then
+		TriggerEvent("redemrp:playerDropped", RedEM.Players[_source])
+		RedEM.DB.UpdatePlayer(RedEM.Players[_source])
+		Wait(500)
+		RedEM.Players[_source] = nil
+	end
+end)
+
+RegisterNetEvent("redemrp:PlayerLogout", function()
+	local _source = source
+	if RedEM.Players[_source] then
+		TriggerEvent("redemrp:playerDropped", RedEM.Players[_source])
+		RedEM.DB.UpdatePlayer(RedEM.Players[_source])
+		Wait(500)
+		RedEM.Players[_source] = nil
+	end
+end)
+
+RedEM.SavePlayerData = function()
 	SetTimeout(60000, function()
 		Citizen.CreateThread(function()
-			for k,v in pairs(Users)do
-				if Users[k] ~= nil then
-						TriggerEvent("redemrp_db:updateUser", v.getIdentifier(), tonumber(v.getSessionVar("charid")), {money = v.getMoney(), gold = v.getGold(), xp = tonumber(v.getXP()), level = tonumber(v.getLevel()), job = v.getJob(), jobgrade = tonumber(v.getJobgrade())}, function()
-					end)
-				end
+			for k,v in pairs(RedEM.Players) do
+				RedEM.DB.UpdatePlayer(v)
 			end
-
-			savePlayerMoney()
+			RedEM.SavePlayerData()
 		end)
 	end)
 end
+RedEM.SavePlayerData()
 
-savePlayerMoney()
-
-AddEventHandler('redemrp_db:doesUserExist', function(identifier, cb)
-    MySQL.Async.fetchAll('SELECT 1 FROM users WHERE `identifier`=@identifier;', {identifier = identifier}, function(users)
-        if users[1] then
-            cb(true)
-        else
-            cb(false)
-        end
-    end)
-end)
-
-local DBData
-
-function CharacterExist (id)	
-	local test = false
-	    for k,v in pairs(DBData) do
-			if v.characterid == id then
-				test = true
-			end
-		end
-    return (test)
-end	
-
-AddEventHandler('redemrp_db:createUser', function(identifier, firstname, lastname, callback)
-	MySQL.Async.fetchAll('SELECT * FROM characters WHERE `identifier`=@identifier', {identifier = identifier}, function(users)
-		DBData = users
-		local charID = 1
-		while CharacterExist(charID) do 
-		   charID = charID + 1
-      		 end
-		print("Found charID "..charID)
-		MySQL.Async.execute('INSERT INTO characters (`identifier`, `firstname`, `lastname`, `characterid`) VALUES (@identifier, @firstname, @lastname, @characterid);',
-		{
-			identifier = identifier,
-			firstname = firstname,
-			lastname = lastname,
-			characterid = charID
-			
-		}, function(rowsChanged)
-			callback(charID)
-		end)
-	end)
-end)
-
-AddEventHandler('redemrp_db:retrieveUser', function(identifier, charid, callback)
-	local SavedCallback = callback
-	MySQL.Async.fetchAll('SELECT * FROM characters WHERE `identifier`=@identifier AND `characterid`=@characterid;', {identifier = identifier, characterid = charid}, function(users)
-		if users[1] then
-			SavedCallback(users[1])
-		else
-			SavedCallback(false)
-		end
-	end)
-end)
-
-AddEventHandler('redemrp_db:updateUser', function(identifier, charid, new, callback)
+RedEM.DB.UpdatePlayer = function(Player)
 	Citizen.CreateThread(function()
-		local updateString = ""
+		local data = {}
 
-		local length = tLength(new)
-		local cLength = 1
-		for k,v in pairs(new)do
-			if cLength < length then
-				if(type(v) == "number")then
-					updateString = updateString .. "`" .. k .. "`=" .. v .. ","
-				else
-					updateString = updateString .. "`" .. k .. "`='" .. v .. "',"
-				end
-			else
-				if(type(v) == "number")then
-					updateString = updateString .. "`" .. k .. "`=" .. v .. ""
-				else
-					updateString = updateString .. "`" .. k .. "`='" .. v .. "'"
-				end
-			end
-			cLength = cLength + 1
+		local SaveCoords = true -- We save the player's coords by default.
+		if not RedEM.PlayerCoords[Player.source] then -- Check if the player's coords have been reported to the server
+			SaveCoords = false -- If they haven't, lets not try to save the player's coords.
 		end
-		MySQL.Async.execute('UPDATE characters SET ' .. updateString .. ' WHERE `identifier`=@identifier AND `characterid`=@characterid', {identifier = identifier, characterid = charid}, function(done)
-			if callback then
-				callback(true)
-			end
-		end)
+
+		-- Here we set all of the player's information into our data table for the query. We can't simply use the Player table, as it includes lua functions.
+		data.citizenid = Player.citizenid
+		data.firstname = Player.firstname
+		data.lastname = Player.lastname
+		data.money = Player.money
+		data.bank = Player.bankmoney
+		data.job = Player.job
+		data.jobgrade = Player.jobgrade
+		data.gang = Player.gang
+		data.ganggrade = Player.ganggrade
+		data.pobox = Player.pobox
+		data.jailed = Player.jailed
+		data.metadata = json.encode(Player.metadata)
+		data.identifier = Player.identifier
+		data.characterid = Player.charid
+
+		local query = "UPDATE characters SET `citizenid`=@citizenid,`money`=@money,`bank`=@bank,`job`=@job,`jobgrade`=@jobgrade,`firstname`=@firstname,`lastname`=@lastname,`gang`=@gang,`ganggrade`=@ganggrade,`coords`=@coords,`pobox`=@pobox,`jailed`=@jailed,`metadata`=@metadata WHERE `identifier`=@identifier AND `characterid`=@characterid"
+		if SaveCoords then -- If we're saving the player coords, let's add it to the data table.
+			data.coords = json.encode(RedEM.PlayerCoords[Player.source])
+		else -- We're not saving the player coords, so let's modify the query to exclude it.
+			query = "UPDATE characters SET `citizenid`=@citizenid,`money`=@money,`bank`=@bank,`job`=@job,`jobgrade`=@jobgrade,`firstname`=@firstname,`lastname`=@lastname,`gang`=@gang,`ganggrade`=@ganggrade,`pobox`=@pobox,`jailed`=@jailed,`metadata`=@metadata WHERE `identifier`=@identifier AND `characterid`=@characterid"
+		end
+		MySQL.update(query, data) -- Execute the player data saving query.
 	end)
+end
+
+RegisterServerEvent("RedEM:server:RegisterCoords", function(coords)
+	local _source = source
+	local Player = RedEM.GetPlayer(_source)
+	if Player then
+    	RedEM.PlayerCoords[_source] = coords -- Register the player's coords.
+	end
 end)
 
 AddEventHandler('txAdmin:events:scheduledRestart', function(eventData)
     if eventData.secondsRemaining == 60 then
         CreateThread(function()
-            Wait(45000)
-            print("15 seconds before restart... saving all players!")
-		for k,v in pairs(Users)do
-			DropPlayer(tonumber(k), "A scheduled server restart is in progress")
-		end
+			Wait(45000)
+            print("^4[DB]^0 15 seconds before restart... kicking & saving all players!")
+			for _, playerId in pairs(GetPlayers()) do
+				DropPlayer(tonumber(playerId), "A scheduled server restart is in progress...")
+			end
         end)
     end
 end)
 
-function tLength(t)
-	local l = 0
-	for k,v in pairs(t)do
-		l = l + 1
+function CharacterExist (id)
+	local test = false
+	for k,v in pairs(DBData) do
+		if v.characterid == id then
+			test = true
+		end
 	end
-
-	return l
-end
+    return (test)
+end	

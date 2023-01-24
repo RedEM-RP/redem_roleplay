@@ -47,7 +47,7 @@
 	width: 100%;
 	text-align: center;
 	font-family: crock;
-	font-size: 25px;
+	font-size: 30px;
 	color: white;
 	padding: 4px;
 	text-shadow:
@@ -61,6 +61,14 @@
 	color: #5e1918;
 	font-weight: 900;
 	margin-right: 6px;
+}
+
+.green {
+	color: #30aa00 !important;
+}
+
+.orange {
+	color: rgb(197, 128, 0) !important;
 }
 
 .tiny {

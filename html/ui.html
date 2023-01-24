@@ -31,7 +31,7 @@
 					let item = event.data;
 					if (item.setmoney == true) {
 						console.log('setmoney:' + item.money);
-						$("#cash").html("<i class='fas fa-dollar-sign'></i>" + addCommas(item.money));
+						$("#cash").html("<i class='fas green fa-dollar-sign'></i>" + addCommas(item.money));
 					} else if (item.addcash == true) {
 						$(".tiny").remove();
 						var element = $("<div class='tiny'>+ <i class='fas fa-dollar-sign'></i>" + addCommas(item.money) + "</div>");
@@ -75,7 +75,7 @@
 					}
 
 					if (item.showid == true) {
-						$("#idk").html("<i class='fas fa-server'></i>" + addCommas(item.id));
+						$("#idk").html("<i class='fas orange fa-user'></i>" + addCommas(item.id));
 					} else if (item.hideid == true) {
 						$(".tiny").remove();
 						var element = $("");
@@ -168,9 +168,8 @@
 			<div id="money">
 				<div id="level"></div>
 				<div id="xp"></div>
-				<div id="gold"></div>
-				<div id="cash"></div>
 				<div id="idk"></div>
+				<div id="cash"></div>
 			</div>
 		</div>
 	</body>
