@@ -21,7 +21,7 @@ CREATE TABLE `characters` (
   `pobox` int(11) NOT NULL,
   `jailed` int(11) NOT NULL DEFAULT 0,
   `metadata` varchar(512) COLLATE utf8mb4_bin NOT NULL DEFAULT '''[]'''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
 
@@ -34,7 +34,7 @@ CREATE TABLE `clothes` (
   `identifier` varchar(40) NOT NULL,
   `charid` int(11) NOT NULL,
   `clothes` varchar(5000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -48,7 +48,7 @@ CREATE TABLE `outfits` (
   `charid` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `clothes` varchar(5000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -61,7 +61,7 @@ CREATE TABLE `skins` (
   `identifier` varchar(40) NOT NULL,
   `charid` int(11) NOT NULL,
   `skin` varchar(5000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -73,7 +73,7 @@ CREATE TABLE `stashes` (
   `id` int(11) NOT NULL,
   `stashid` text NOT NULL,
   `items` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -86,7 +86,7 @@ CREATE TABLE `user_inventory` (
   `identifier` varchar(50) COLLATE utf8mb4_bin NOT NULL,
   `charid` int(11) NOT NULL,
   `items` varchar(16000) COLLATE utf8mb4_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Indexes for dumped tables
