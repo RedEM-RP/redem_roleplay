@@ -103,21 +103,21 @@ NewPlayer = function(source, charid, dbdata)
     end
 
     self.SetBankMoney = function(m)
-		self.bankmoney = m
+        self.bankmoney = m
         self.SendPlayerDataToClient()
-	end
+    end
 
     self.AddBankMoney = function(m)
         local newMoney = self.bankmoney + m
         self.bankmoney = newMoney
         self.SendPlayerDataToClient()
-	end
+    end
 
-	self.RemoveBankMoney = function(m)
+    self.RemoveBankMoney = function(m)
         local newMoney = self.bankmoney - m
         self.bankmoney = newMoney
         self.SendPlayerDataToClient()
-	end
+    end
     
 
     self.SetMetaData = function(key, value)
@@ -148,25 +148,25 @@ NewPlayer = function(source, charid, dbdata)
     
     self.set = function(k, v)
         self[k] = v
-		self.SendPlayerDataToClient()
+        self.SendPlayerDataToClient()
     end
 
     self.get = function(k)
         return self[k]
     end
 
-	self.SendPlayerDataToClient = function()
-		local PlayerData = {}
+    self.SendPlayerDataToClient = function()
+        local PlayerData = {}
         PlayerData.isLoggedIn = true
         PlayerData.citizenid = self.citizenid
         PlayerData.money = self.money
         PlayerData.bankmoney = self.bankmoney
-		PlayerData.group = self.group
-		PlayerData.firstname = self.firstname
-		PlayerData.lastname = self.lastname
+        PlayerData.group = self.group
+        PlayerData.firstname = self.firstname
+        PlayerData.lastname = self.lastname
         PlayerData.charname = ("%s %s"):format(self.firstname, self.lastname)
-		PlayerData.job = self.job
-		PlayerData.jobgrade = self.jobgrade
+        PlayerData.job = self.job
+        PlayerData.jobgrade = self.jobgrade
         PlayerData.gang = self.job
         PlayerData.ganggrade = self.ganggrade
         PlayerData.pobox = self.pobox
@@ -177,22 +177,22 @@ NewPlayer = function(source, charid, dbdata)
         Player(self.source).state.citizenid = self.citizenid
         Player(self.source).state.money = self.money
         Player(self.source).state.bankmoney = self.bankmoney
-		Player(self.source).state.group = self.group
-		Player(self.source).state.firstname = self.firstname
-		Player(self.source).state.lastname = self.lastname
+        Player(self.source).state.group = self.group
+        Player(self.source).state.firstname = self.firstname
+        Player(self.source).state.lastname = self.lastname
         Player(self.source).state.charname = ("%s %s"):format(self.firstname, self.lastname)
-		Player(self.source).state.job = self.job
-		Player(self.source).state.jobgrade = self.jobgrade
+        Player(self.source).state.job = self.job
+        Player(self.source).state.jobgrade = self.jobgrade
         Player(self.source).state.gang = self.gang
         Player(self.source).state.ganggrade = self.ganggrade
         Player(self.source).state.pobox = self.pobox
         Player(self.source).state.jailed = self.jailed
         Player(self.source).state.metadata = self.metadata
-	
-		TriggerClientEvent("redemrp:receivePlayerData", self.source, PlayerData)
-	end
+    
+        TriggerClientEvent("redemrp:receivePlayerData", self.source, PlayerData)
+    end
 
-	self.SendPlayerDataToClient()
+    self.SendPlayerDataToClient()
 
     self.setJob = self.SetJob -- Deprecated function name
     self.setFirstname = self.SetFirstName -- Deprecated function name

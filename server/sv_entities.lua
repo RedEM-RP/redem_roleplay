@@ -54,7 +54,7 @@ end
 entity("npc", {x = -1782.99, y = -383.39, z = 159.05}, "NPC-01", { hash = "A_C_Horse_Arabian_White" })
 
 RegisterCommand("requestentities", function(source, args, rawCommand)
-	TriggerClientEvent("redemrp:manual_entity_update", source)
+    TriggerClientEvent("redemrp:manual_entity_update", source)
 end)
 
 RegisterServerEvent("redemrp:request_entities")

@@ -1,11 +1,11 @@
 local ConnectedPlayers = {}
 
 RegisterCommand("sfi", function(source, args, rawCommand)
-	TriggerClientEvent("redem_roleplay:SFI", source)
+    TriggerClientEvent("redem_roleplay:SFI", source)
 end, false)
 
 TP = function(source, args, rawCommand)
-	local Player = RedEM.GetPlayer(source)
+    local Player = RedEM.GetPlayer(source)
     if Player.group == "mod" or Player.group == "admin" or Player.group == "superadmin" then
         if args[1] ~= nil and args[2] == nil and args[3] == nil then
             if DoesEntityExist(GetPlayerPed(args[1])) then

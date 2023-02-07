@@ -43,7 +43,7 @@ RedEM.Functions.LoadAnim = function(dict)
                 Citizen.Wait(1)
             end
         end
-	end
+    end
 end
 
 RedEM.Functions.LoadTexture = function(dict)
@@ -150,18 +150,18 @@ RedEM.Functions.GetTownNameAtCoords = function(coords)
 end
 
 RedEM.Functions.SetGuarmaWorldhorizonActive = function(toggle)
-	Citizen.InvokeNative(0x74E2261D2A66849A, toggle)
+    Citizen.InvokeNative(0x74E2261D2A66849A, toggle)
 end
 
 RedEM.Functions.SetWorldWaterType = function(waterType)
-	Citizen.InvokeNative(0xE8770EE02AEE45C2, waterType)
+    Citizen.InvokeNative(0xE8770EE02AEE45C2, waterType)
 end
 
 RedEM.Functions.SetWorldMapType = function(mapType)
-	Citizen.InvokeNative(0xA657EC9DBC6CC900, mapType)
+    Citizen.InvokeNative(0xA657EC9DBC6CC900, mapType)
 end
 
 RedEM.Functions.IsInGuarma = function()
-	local x, y, z = table.unpack(GetEntityCoords(PlayerPedId()))
-	return x >= 0 and y <= -4096
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId()))
+    return x >= 0 and y <= -4096
 end
