@@ -1,5 +1,4 @@
-RegisterNetEvent("RedEM:client:PlaySound")
-AddEventHandler("RedEM:client:PlaySound", function(sound)
+RegisterNetEvent("RedEM:client:PlaySound", function(sound)
     if sound == 1 then
         PlaySoundFrontend("MONEY", "HUD_DOMINOS_SOUNDSET", 1)
     elseif sound == 2 then

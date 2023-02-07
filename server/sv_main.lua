@@ -1,5 +1,6 @@
 RedEM = {}
 RedEM.Version = Config.Version
+RedEM.Config = Config
 RedEM.Players = {}
 RedEM.DB = {}
 RedEM.ClientCallbacks = {}
@@ -27,7 +28,7 @@ RedEM.GetPlayer = function(playerId)
 		if RedEM.Players[playerId] then
 			return RedEM.Players[playerId]
 		else
- 			return nil
+			return nil
 		end
 	else
 		return nil
@@ -49,10 +50,10 @@ RedEM.GetPlayerCB = function(playerId, cb)
 	playerId = tonumber(playerId)
 	if RedEM.Players then
 		if RedEM.Players[playerId] then
-			Citizen.Trace("^2[redemrp] ^0Deprecated event used (redemrp:getPlayerFromId)\n^2[redemrp] ^0Please update your scripts to the new standard available at\n^2[redemrp] ^0https://github.com/RedEM-RP/redemrp_common/blob/master/README.md")
+			Citizen.Trace("^2[redemrp] ^0Deprecated event used (redemrp:getPlayerFromId)\n^2[redemrp] ^0Please update your scripts to the new standard available at\n^2[redemrp] ^0https://sinatra.gitbook.io/redemrp/developer-documentation/server-scripting-api/player-class")
 			cb(RedEM.Players[playerId])
 		else
- 			cb(nil)
+			cb(nil)
 		end
 	else
 		cb(nil)
@@ -90,11 +91,13 @@ RedEM.DB.CreateCharacter = function(firstname, lastname)
 			local randomPOBoxNum = RedEM.Functions.CreatePOBox()		
 			local citizenId = RedEM.Functions.CreateCitizenId()
 
-			MySQL.update('INSERT INTO characters (`identifier`, `firstname`, `lastname`, `characterid`, `citizenid`, `pobox`) VALUES (@identifier, @firstname, @lastname, @characterid, @citizenid, @pobox);',
+			MySQL.update('INSERT INTO characters (`identifier`, `firstname`, `lastname`, `money`, `bank`, `characterid`, `citizenid`, `pobox`) VALUES (@identifier, @firstname, @lastname, @money, @bank, @characterid, @citizenid, @pobox);',
 			{
 				identifier = identifier,
 				firstname = firstname,
 				lastname = lastname,
+				money = RedEM.Config.StartingCash,
+				bank = RedEM.Config.StartingBank,
 				characterid = charID,
 				citizenid = citizenId,
 				pobox = randomPOBoxNum,
@@ -122,26 +125,6 @@ RedEM.DB.LoadCharacter = function(_source, identifier, charid, new)
 		end
 	end)
 end
-
-AddEventHandler('playerDropped', function(reason)
-	local _source = source
-	if RedEM.Players[_source] then
-		TriggerEvent("redemrp:playerDropped", RedEM.Players[_source])
-		RedEM.DB.UpdatePlayer(RedEM.Players[_source])
-		Wait(500)
-		RedEM.Players[_source] = nil
-	end
-end)
-
-RegisterNetEvent("redemrp:PlayerLogout", function()
-	local _source = source
-	if RedEM.Players[_source] then
-		TriggerEvent("redemrp:playerDropped", RedEM.Players[_source])
-		RedEM.DB.UpdatePlayer(RedEM.Players[_source])
-		Wait(500)
-		RedEM.Players[_source] = nil
-	end
-end)
 
 RedEM.SavePlayerData = function()
 	SetTimeout(60000, function()
@@ -190,13 +173,57 @@ RedEM.DB.UpdatePlayer = function(Player)
 	end)
 end
 
+RedEM.DB.GetPlayerPermissionGroup = function(identifier)
+	local users = MySQL.query.await('SELECT * FROM permissions WHERE `identifier` = ?', { identifier })
+	if users[1] then
+		return users[1].permissiongroup
+	else
+		return "user"
+	end
+end
+
+RedEM.DB.SetPlayerPermissionGroup = function(identifier, group)
+	if group ~= "user" then
+		MySQL.update('INSERT INTO permissions (identifier, permissiongroup) VALUES (?, ?) ON DUPLICATE KEY UPDATE permissiongroup = ?', { identifier, group, group })
+		print("^4[DB]^0 Added identifier ^2" .. identifier .. "^0 to permissions table (^2" .. group .. "^0)")
+	else
+		MySQL.query('SELECT * FROM permissions WHERE `identifier` = ?', { identifier }, function(result)
+			if result[1] then
+				MySQL.update('DELETE FROM permissions WHERE `identifier` = ?', { identifier })
+				print("^4[DB]^0 Removed identifier ^2" .. identifier .. "^0 from permissions table")
+			end
+		end)
+	end
+end
+
 RegisterServerEvent("RedEM:server:RegisterCoords", function(coords)
 	local _source = source
 	local Player = RedEM.GetPlayer(_source)
 	if Player then
-    	RedEM.PlayerCoords[_source] = coords -- Register the player's coords.
+		RedEM.PlayerCoords[_source] = coords -- Register the player's coords.
 	end
 end)
+
+AddEventHandler('playerDropped', function(reason)
+	local _source = source
+	if RedEM.Players[_source] then
+		TriggerEvent("redemrp:playerDropped", RedEM.Players[_source])
+		RedEM.DB.UpdatePlayer(RedEM.Players[_source])
+		Wait(500)
+		RedEM.Players[_source] = nil
+	end
+end)
+
+RegisterNetEvent("redemrp:PlayerLogout", function()
+	local _source = source
+	if RedEM.Players[_source] then
+		TriggerEvent("redemrp:playerDropped", RedEM.Players[_source])
+		RedEM.DB.UpdatePlayer(RedEM.Players[_source])
+		Wait(500)
+		RedEM.Players[_source] = nil
+	end
+end)
+
 
 AddEventHandler('txAdmin:events:scheduledRestart', function(eventData)
     if eventData.secondsRemaining == 60 then

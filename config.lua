@@ -7,3 +7,6 @@ Config.DisableSpaceInWeaponWheel            = true          -- Set to true to di
 Config.MapCrossName                         = ""            -- Set the BLIP_NAME when a player is hovered over a non-existant blip on the map (base game)
 Config.DisableLootBoxes                     = true          -- Set to true to disable random loot boxes (base game)
 Config.DisableAimAssist                     = true          -- Set to true to disable aim assist on controllers (unfair for RP servers)
+
+Config.StartingCash                         = 100           -- The amount of cash to start with
+Config.StartingBank                         = 0             -- The amount of bank money to start with

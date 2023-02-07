@@ -1,12 +1,12 @@
 NewPlayer = function(source, charid, dbdata)
     local self = {}
     self.name = GetPlayerName(source)
+    self.group = RedEM.DB.GetPlayerPermissionGroup(dbdata.identifier)
     self.license = RedEM.Functions.GetIdentifier(source, 'license')
     self.source = source
     self.identifier = dbdata.identifier
     self.charid = charid
     self.citizenid = dbdata.citizenid
-    self.group = nil
     self.money = dbdata.money
     self.bankmoney = dbdata.bank
     self.firstname = dbdata.firstname
@@ -22,6 +22,7 @@ NewPlayer = function(source, charid, dbdata)
     if self.metadata == nil then self.metadata = {} end
     if not self.metadata.thirst then self.metadata.thirst = 100 end
     if not self.metadata.hunger then self.metadata.hunger = 100 end
+    if not self.metadata.stress then self.metadata.stress = 0 end
 
     if not self.citizenid then
         self.citizenid = RedEM.Functions.CreateCitizenId()
@@ -34,30 +35,6 @@ NewPlayer = function(source, charid, dbdata)
     if not self.pobox then
         self.pobox = RedEM.Functions.CreatePOBox()
     end
-
-    -- Roll your own discord role permissions sytem here.
-    --[[
-    local roles = exports["redemrp_discordwl"]:GetDiscordRoles(self.source)
-    if roles then
-        for i=1,#roles do
-            if roles[i] == "ROLEID" then -- Owner
-                self.group = "superadmin"
-                break
-            elseif roles[i] == "ROLEID" then -- Head Admin
-                self.group = "superadmin"
-                break
-            elseif roles[i] == "ROLEID" then -- Admin
-                self.group = "admin"
-                break
-            elseif roles[i] == "ROLEID" then -- Moderator
-                self.group = "mod"
-                break
-            end
-        end
-    end
-    ]]
-
-    if not self.group then self.group = "user" end
 
     self.SetFirstName = function(m)
         self.firstname = m
@@ -115,7 +92,6 @@ NewPlayer = function(source, charid, dbdata)
         self.SendPlayerDataToClient()
     end
 
-    -- Removes money from the user
     self.RemoveMoney = function(m)
         local newMoney = self.money - m
 
@@ -137,7 +113,6 @@ NewPlayer = function(source, charid, dbdata)
         self.SendPlayerDataToClient()
 	end
 
-    -- Removes money from the user
 	self.RemoveBankMoney = function(m)
         local newMoney = self.bankmoney - m
         self.bankmoney = newMoney
@@ -183,11 +158,13 @@ NewPlayer = function(source, charid, dbdata)
 	self.SendPlayerDataToClient = function()
 		local PlayerData = {}
         PlayerData.isLoggedIn = true
+        PlayerData.citizenid = self.citizenid
         PlayerData.money = self.money
         PlayerData.bankmoney = self.bankmoney
 		PlayerData.group = self.group
 		PlayerData.firstname = self.firstname
 		PlayerData.lastname = self.lastname
+        PlayerData.charname = ("%s %s"):format(self.firstname, self.lastname)
 		PlayerData.job = self.job
 		PlayerData.jobgrade = self.jobgrade
         PlayerData.gang = self.job
@@ -197,11 +174,13 @@ NewPlayer = function(source, charid, dbdata)
         PlayerData.metadata = self.metadata
 
         Player(self.source).state.isLoggedIn = true
+        Player(self.source).state.citizenid = self.citizenid
         Player(self.source).state.money = self.money
         Player(self.source).state.bankmoney = self.bankmoney
 		Player(self.source).state.group = self.group
 		Player(self.source).state.firstname = self.firstname
 		Player(self.source).state.lastname = self.lastname
+        Player(self.source).state.charname = ("%s %s"):format(self.firstname, self.lastname)
 		Player(self.source).state.job = self.job
 		Player(self.source).state.jobgrade = self.jobgrade
         Player(self.source).state.gang = self.gang
