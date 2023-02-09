@@ -109,7 +109,7 @@ end, false)
 RegisterCommand("bring", function(source, args, rawCommand)
     local Player = RedEM.GetPlayer(source)
     if Player.group == "mod" or Player.group == "admin" or Player.group == "superadmin" then
-        if args[1] ~= nil and args[2] == nil and args[3] == nil then
+        if args[1] ~= nil then
             if DoesEntityExist(GetPlayerPed(args[1])) then
                 local toCoords = GetEntityCoords(GetPlayerPed(source))
                 SetEntityCoords(GetPlayerPed(args[1]), toCoords)
@@ -117,10 +117,8 @@ RegisterCommand("bring", function(source, args, rawCommand)
             else
                 RedEM.Functions.NotifyRight(source, "Player offline?", 3000)
             end
-        elseif args[1] ~= nil and args[2] ~= nil and args[3] ~= nil then
-            SetEntityCoords(GetPlayerPed(source), args[1], args[2], args[3])
         else
-            RedEM.Functions.NotifyRight(source, "/tp [Player ID / X] [Y (optional)] [Z (optional)]", 3000)
+            RedEM.Functions.NotifyRight(source, "/bring [Player ID]", 3000)
         end
     else
         RedEM.Functions.NotifyRight(source, "Insufficient permissions.", 3000)
