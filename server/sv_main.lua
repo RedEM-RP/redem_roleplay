@@ -46,6 +46,12 @@ RedEM.GetPlayerByCitizenId = function(cid)
     return nil
 end
 
+RedEM.GetAllPlayers = function(cb)
+    if RedEM.Players then
+        cb(RedEM.Players)
+    end
+end
+
 RedEM.GetPlayerCB = function(playerId, cb)
     playerId = tonumber(playerId)
     if RedEM.Players then
