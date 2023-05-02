@@ -115,6 +115,27 @@ RedEM.DB.CreateCharacter = function(firstname, lastname)
 end
 RegisterServerEvent("redemrp:createCharacter", RedEM.DB.CreateCharacter)
 
+RegisterServerEvent("redemrp:TempLoadCharacter")
+AddEventHandler("redemrp:TempLoadCharacter", function(charid)
+    local _source = source
+    RedEM.DB.TempLoadCharacter(_source,charid)
+end)
+
+RedEM.DB.TempLoadCharacter = function(_source,charid)
+    local identifier = RedEM.Functions.GetIdentifier(_source, "steam")
+    MySQL.query('SELECT * FROM characters WHERE `identifier`=@identifier AND `characterid`=@characterid;', {identifier = identifier, characterid = charid}, function(users)
+        if users[1] then
+            local _user = users[1]
+            RedEM.Players[_source] = NewPlayer(_source, charid, _user)
+            Citizen.CreateThread(function()
+                Wait(3000)
+                RedEM.DB.UpdatePlayer(RedEM.Players[_source])
+                RedEM.Players[_source] = nil
+            end)            
+        end
+    end)
+end
+
 RedEM.DB.LoadCharacter = function(_source, identifier, charid, new)
     MySQL.query('SELECT * FROM characters WHERE `identifier`=@identifier AND `characterid`=@characterid;', {identifier = identifier, characterid = charid}, function(users)
         if users[1] then
@@ -251,4 +272,4 @@ function CharacterExist (id)
         end
     end
     return (test)
-end	
+end
