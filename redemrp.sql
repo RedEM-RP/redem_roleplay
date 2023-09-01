@@ -1,4 +1,4 @@
-CREATE TABLE `characters` (
+CREATE TABLE IF NOT EXISTS `characters` (
   `id` int(11) NOT NULL,
   `identifier` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL,
   `characterid` int(11) DEFAULT 0,
@@ -17,14 +17,14 @@ CREATE TABLE `characters` (
   `metadata` varchar(512) COLLATE utf8mb4_bin NOT NULL DEFAULT '''[]'''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
-CREATE TABLE `clothes` (
+CREATE TABLE IF NOT EXISTS`clothes` (
   `id` int(11) NOT NULL,
   `identifier` varchar(40) NOT NULL,
   `charid` int(11) NOT NULL,
   `clothes` varchar(5000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `outfits` (
+CREATE TABLE IF NOT EXISTS `outfits` (
   `id` int(11) NOT NULL,
   `identifier` varchar(40) NOT NULL,
   `charid` int(11) NOT NULL,
@@ -32,31 +32,42 @@ CREATE TABLE `outfits` (
   `clothes` varchar(5000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `skins` (
+CREATE TABLE IF NOT EXISTS `skins` (
   `id` int(11) NOT NULL,
   `identifier` varchar(40) NOT NULL,
   `charid` int(11) NOT NULL,
   `skin` varchar(5000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `stashes` (
+CREATE TABLE IF NOT EXISTS `stashes` (
   `id` int(11) NOT NULL,
   `stashid` text NOT NULL,
   `items` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `user_inventory` (
+CREATE TABLE IF NOT EXISTS `user_inventory` (
   `id` int(11) NOT NULL,
   `identifier` varchar(50) COLLATE utf8mb4_bin NOT NULL,
   `charid` int(11) NOT NULL,
   `items` varchar(16000) COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
-CREATE TABLE `permissions` (
+CREATE TABLE IF NOT EXISTS `permissions` (
   `id` int(11) NOT NULL,
   `identifier` varchar(32) NOT NULL,
   `permissiongroup` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `identifier` varchar(50) COLLATE utf8mb4_bin NOT NULL,
+  `license` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `money` double(11, 2) DEFAULT NULL,
+  `bank` double(11, 2) DEFAULT NULL,
+  `permission_level` int(11) DEFAULT NULL,
+  `group` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL,
+  PRIMARY KEY (`identifier`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`);
