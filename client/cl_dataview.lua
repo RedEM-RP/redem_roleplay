@@ -182,7 +182,7 @@ SetFixed = function(self, offset, value, code)
         local size = self.length - newoff + 1
 
         fmt[#fmt + 1] = "c" .. tostring(size)
-        values[#values + 1] = self.blob:sub(newoff, size)
+        values[#values + 1] = self.blob:sub(newoff, size.length)
     end
 
     self.blob = string.pack(table.concat(fmt, ""), table.unpack(values))
