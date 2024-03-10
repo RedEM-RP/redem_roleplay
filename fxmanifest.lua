@@ -7,13 +7,13 @@ rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aw
 shared_script 'config.lua'
 
 client_scripts {
+	'client/cl_dataview.lua',
 	'client/cl_main.lua',
 	'client/cl_natives.lua',
 	'client/cl_functions.lua',
 	'client/cl_entities.lua',
 	'client/cl_hud.lua',
 	'client/cl_callbacks.lua',
-	'client/cl_notification.js',
 	'client/cl_notification.lua',
 	'client/cl_game.lua',
 	'client/cl_events.lua',
